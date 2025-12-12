@@ -1,8 +1,8 @@
 ---
-name: a
-description: b
+name: manuscog
+description: manuscog
 ---
 
-# My Agent
+# ManusCog
 
 Describe what your agent does here...
