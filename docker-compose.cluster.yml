@@ -1,0 +1,108 @@
+# =============================================================================
+# Inferno-OS Distributed VM Cluster — Docker Compose
+# Deploys N Inferno emu instances as a 9P-connected cluster.
+# =============================================================================
+#
+# Usage:
+#   docker compose -f docker-compose.cluster.yml up -d
+#   docker compose -f docker-compose.cluster.yml --scale inferno-node=5 up -d
+#   docker compose -f docker-compose.cluster.yml down
+#
+
+services:
+  # --------------------------------------------------------------------------
+  # Registry Node (Node 0) — Cluster coordinator and name registry
+  # --------------------------------------------------------------------------
+  inferno-registry:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    container_name: inferno-registry
+    hostname: inferno-registry
+    environment:
+      - INFERNO_ROOT=/usr/inferno
+      - INFERNO_NODE_ID=0
+      - INFERNO_NODE_ROLE=registry
+      - INFERNO_9P_PORT=6666
+    ports:
+      - "6666:6666"
+      - "8080:8080"
+    volumes:
+      - inferno-registry-data:/var/inferno/cluster/node-0
+      - ./:/workspace
+    networks:
+      inferno-net:
+        aliases:
+          - registry.inferno.local
+    command: >
+      emu -c1 -r /usr/inferno
+      "bind '#I' /net; listen -A tcp!*!6666 { export / & }"
+    healthcheck:
+      test: ["CMD", "bash", "-c", "echo | socat - TCP:localhost:6666,connect-timeout=2"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # --------------------------------------------------------------------------
+  # Worker Nodes — Distributed cognitive processing
+  # --------------------------------------------------------------------------
+  inferno-node:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    environment:
+      - INFERNO_ROOT=/usr/inferno
+      - INFERNO_NODE_ROLE=worker
+      - INFERNO_REGISTRY=tcp!inferno-registry!6666
+    volumes:
+      - ./:/workspace
+    networks:
+      - inferno-net
+    depends_on:
+      inferno-registry:
+        condition: service_healthy
+    command: >
+      emu -c1 -r /usr/inferno
+      "bind '#I' /net; listen -A tcp!*!6667 { export / & };
+       mount tcp!inferno-registry!6666 /mnt/registry"
+    deploy:
+      replicas: 2
+      resources:
+        limits:
+          cpus: "2"
+          memory: 2G
+
+  # --------------------------------------------------------------------------
+  # Cluster Monitor — Web dashboard for cluster status
+  # --------------------------------------------------------------------------
+  inferno-monitor:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    container_name: inferno-monitor
+    hostname: inferno-monitor
+    environment:
+      - INFERNO_ROOT=/usr/inferno
+      - INFERNO_NODE_ROLE=monitor
+      - FLASK_APP=/workspace/scripts/cluster_monitor.py
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./:/workspace
+    networks:
+      - inferno-net
+    depends_on:
+      inferno-registry:
+        condition: service_healthy
+    command: >
+      python3 /workspace/scripts/cluster_monitor.py
+
+volumes:
+  inferno-registry-data:
+
+networks:
+  inferno-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

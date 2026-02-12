@@ -1,0 +1,133 @@
+{
+  "name": "ManusCog — Inferno-OS Cognitive Kernel Development",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "..",
+    "args": {
+      "INFERNO_ROOT": "/usr/inferno",
+      "CLUSTER_NODES": "3",
+      "ENABLE_GUI": "true"
+    }
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "configureZshAsDefaultShell": true,
+      "installOhMyZsh": true,
+      "username": "inferno",
+      "userUid": "1000",
+      "userGid": "1000"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "editor.tabSize": 4,
+        "editor.insertSpaces": false,
+        "editor.rulers": [80],
+        "files.associations": {
+          "*.b": "limbo",
+          "*.m": "limbo-module",
+          "*.dis": "dis-bytecode",
+          "*.sbl": "dis-symbols",
+          "mkfile": "makefile",
+          "mkconfig": "makefile"
+        },
+        "files.exclude": {
+          "**/*.o": true,
+          "**/*.dis": false,
+          "**/*.sbl": true
+        },
+        "search.exclude": {
+          "**/dis/**": true,
+          "**/build/**": true
+        },
+        "inferno.root": "/usr/inferno",
+        "inferno.emuPath": "/usr/inferno/Linux/amd64/bin/emu",
+        "inferno.limboCompiler": "/usr/inferno/Linux/amd64/bin/limbo",
+        "inferno.clusterNodes": 3,
+        "inferno.9pPort": 6666
+      },
+      "extensions": [
+        "ms-vscode.cpptools",
+        "ms-vscode.makefile-tools",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "streetsidesoftware.code-spell-checker",
+        "gruntfuggly.todo-tree",
+        "usernamehw.errorlens",
+        "EditorConfig.EditorConfig"
+      ]
+    }
+  },
+
+  "mounts": [
+    "source=manuscog-devcontainer-home,target=/home/inferno,type=volume",
+    "source=manuscog-cluster-data,target=/var/inferno/cluster,type=volume"
+  ],
+
+  "forwardPorts": [
+    6666,
+    6667,
+    6668,
+    8080,
+    9090
+  ],
+
+  "portsAttributes": {
+    "6666": { "label": "9P/Styx — Node 0 (Registry)", "protocol": "tcp" },
+    "6667": { "label": "9P/Styx — Node 1", "protocol": "tcp" },
+    "6668": { "label": "9P/Styx — Node 2", "protocol": "tcp" },
+    "8080": { "label": "ManusCog Web Interface", "protocol": "http" },
+    "9090": { "label": "Cluster Monitor", "protocol": "http" }
+  },
+
+  "containerEnv": {
+    "INFERNO_ROOT": "/usr/inferno",
+    "EMU": "/usr/inferno/Linux/amd64/bin/emu",
+    "LIMBO": "/usr/inferno/Linux/amd64/bin/limbo",
+    "PATH": "/usr/inferno/Linux/amd64/bin:${localEnv:PATH}",
+    "INFERNO_CLUSTER_NODES": "3",
+    "INFERNO_9P_PORT": "6666",
+    "DISPLAY": "${localEnv:DISPLAY:-:0}",
+    "PYTHONPATH": "/workspace"
+  },
+
+  "remoteUser": "inferno",
+
+  "postCreateCommand": "bash /workspace/.devcontainer/scripts/post-create.sh",
+  "postStartCommand": "bash /workspace/.devcontainer/scripts/post-start.sh",
+
+  "runArgs": [
+    "--cap-add=SYS_PTRACE",
+    "--security-opt", "seccomp=unconfined",
+    "--network=manuscog-cluster-net"
+  ],
+
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace",
+
+  "hostRequirements": {
+    "cpus": 4,
+    "memory": "8gb",
+    "storage": "32gb"
+  }
+}
