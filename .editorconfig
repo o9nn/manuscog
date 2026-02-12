@@ -1,0 +1,47 @@
+# EditorConfig for Inferno-OS / Limbo development
+# https://editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Limbo source files — tabs, Plan 9 convention
+[*.{b,m}]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+
+# C source files (kernel code)
+[*.{c,h}]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+
+# Python scripts
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Shell scripts
+[*.sh]
+indent_style = space
+indent_size = 4
+
+# YAML / JSON configuration
+[*.{yml,yaml,json}]
+indent_style = space
+indent_size = 2
+
+# Makefiles and mkfiles — must use tabs
+[{Makefile,mkfile,mkconfig}]
+indent_style = tab
+
+# Markdown documentation
+[*.md]
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = false

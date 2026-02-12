@@ -1,0 +1,20 @@
+</$INFERNO_ROOT/mkconfig
+
+# OpenCog-Inferno Cognitive Kernel — Limbo Build
+# Usage: mk install    — build and install all modules
+#        mk clean      — remove build artifacts
+#        mk test       — run test suite
+
+TARG=\
+	cogkernel.dis\
+
+MODULES=\
+	src/cogkernel.b\
+
+SYSMODULES=\
+	sys.m\
+	draw.m\
+
+DISBIN=$INFERNO_ROOT/dis/lib
+
+</opt/mkfiles/mkdis
