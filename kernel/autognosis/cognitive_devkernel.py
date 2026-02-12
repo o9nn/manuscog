@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+import sys as _sys, os as _os
+_script_dir = _os.path.dirname(_os.path.abspath(__file__))
+if _script_dir in _sys.path:
+    _sys.path.remove(_script_dir)
 """
 ManusCog Cognitive DevKernel — Unified Orchestrator
 
