@@ -1,0 +1,98 @@
+# ManusCog Cognitive DevKernel — Transform Specification
+#
+# This file defines the function-creator domain mapping for
+# transforming tc (file management) and time-crystal-nn (temporal hierarchy)
+# into the cognitive kernel domain.
+#
+# Used by: function-creator chain_transforms.py
+
+source_skills:
+  - name: tc
+    domain: file-management
+    description: "Total Commander file operations"
+  - name: time-crystal-nn
+    domain: temporal-hierarchy
+    description: "Nanobrain time crystal neural networks"
+
+target_skill:
+  name: manuscog-cognitive-devkernel
+  domain: cognitive-kernel
+  description: "ManusCog cognitive development kernel"
+
+# tc → Cognitive File System mappings
+tc_mappings:
+  term_mappings:
+    "file system":       "cognitive namespace"
+    "directory":         "service group"
+    "file":              "atom/rule/agent"
+    "file properties":   "atom metadata (type, STI, LTI, truth value)"
+    "search":            "pattern matching"
+    "copy":              "atom migration"
+    "move":              "atom transfer"
+    "archive pack":      "namespace snapshot"
+    "archive unpack":    "namespace restore"
+    "batch rename":      "bulk type conversion"
+    "tree":              "/cognitive/ hierarchy display"
+    "Total Commander":   "Cognitive File System"
+
+  path_mappings:
+    "/home/":            "/cognitive/"
+    "/documents/":       "/cognitive/atomspace/"
+    "/downloads/":       "/cognitive/inference/"
+    "/pictures/":        "/cognitive/attention/"
+    "/music/":           "/cognitive/learning/"
+    "/videos/":          "/cognitive/temporal/"
+    "/temp/":            "/cognitive/autognosis/"
+
+# time-crystal-nn → Temporal Hierarchy mappings
+tcnn_mappings:
+  term_mappings:
+    "neuron":            "cognitive service"
+    "synapse":           "9P connection"
+    "dendrite":          "input namespace"
+    "soma":              "processing core"
+    "axon":              "output namespace"
+    "oscillation":       "service cycle"
+    "phase coupling":    "temporal synchronization"
+    "feedback loop":     "autognosis cycle"
+    "rhythm":            "cluster heartbeat"
+
+  level_mappings:
+    0: { name: "atom-ops",       period_ms: 8,    service: "AtomSpace CRUD" }
+    1: { name: "pattern-match",  period_ms: 26,   service: "Pattern matching" }
+    2: { name: "inference-step", period_ms: 52,   service: "PLN inference" }
+    3: { name: "attention-tick", period_ms: 110,  service: "ECAN attention" }
+    4: { name: "learning-batch", period_ms: 160,  service: "MOSES learning" }
+    5: { name: "namespace-sync", period_ms: 250,  service: "9P namespace sync" }
+    6: { name: "cluster-pulse",  period_ms: 330,  service: "Cluster heartbeat" }
+    7: { name: "autognosis-obs", period_ms: 500,  service: "Autognosis observation" }
+    8: { name: "self-image",     period_ms: 1000, service: "Self-image rebuild" }
+
+# Promise-Lambda Attention configuration
+promise_config:
+  lambda_source: inferno-devcontainer
+  kv_source: opencog-inferno-kernel
+  mechanism: "lambda(KV)^-1"
+  promises:
+    - inferno-binary
+    - limbo-compiler
+    - 9p-listener
+    - cluster-compose
+    - cognitive-ns
+    - devcontainer-json
+    - autognosis-loop
+    - temporal-levels
+
+# Autognosis configuration
+autognosis_config:
+  levels: 3
+  cycle_period_ms: 1000
+  convergence_epsilon: 0.001
+  max_depth: 5
+
+# skill-infinity convergence
+convergence:
+  type: fixed-point
+  equation: "T(system) = system"
+  check: "|score(n) - score(n-1)| < epsilon"
+  epsilon: 0.001
