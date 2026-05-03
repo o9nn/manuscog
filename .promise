@@ -1,0 +1,70 @@
+# ManusCog Cognitive DevKernel — Promise Configuration
+# This file defines the lambda constraints that must be satisfied
+# for a valid cognitive kernel deployment.
+#
+# Format: Each promise is a YAML entry with:
+#   name: unique identifier
+#   constraint: human-readable description of what must be true
+#   required: true/false (required promises block deployment)
+#   check: the validation method (file-exists, content-contains, port-open, count-gte)
+
+promises:
+  # Infrastructure promises (inferno-devcontainer)
+  - name: inferno-binary
+    constraint: "emu binary exists at INFERNO_ROOT/Linux/amd64/bin/emu"
+    required: true
+    check: file-exists
+    path: ".devcontainer/Dockerfile"
+    pattern: "emu"
+
+  - name: limbo-compiler
+    constraint: "limbo compiler exists at INFERNO_ROOT/Linux/amd64/bin/limbo"
+    required: true
+    check: file-exists
+    path: ".devcontainer/Dockerfile"
+    pattern: "limbo"
+
+  - name: 9p-listener
+    constraint: "9P/Styx port 6666 is configured for forwarding"
+    required: true
+    check: content-contains
+    path: ".devcontainer/devcontainer.json"
+    pattern: "6666"
+
+  # Cluster promises (opencog-inferno-kernel)
+  - name: cluster-compose
+    constraint: "docker-compose.cluster.yml defines inferno-registry service"
+    required: true
+    check: content-contains
+    path: "docker-compose.cluster.yml"
+    pattern: "inferno-registry"
+
+  - name: cognitive-ns
+    constraint: "/cognitive/atomspace namespace is defined in cluster config"
+    required: true
+    check: content-contains
+    path: "docker-compose.cluster.yml"
+    pattern: "cognitive"
+
+  # Devcontainer promises
+  - name: devcontainer-json
+    constraint: "devcontainer.json contains INFERNO_ROOT environment variable"
+    required: true
+    check: content-contains
+    path: ".devcontainer/devcontainer.json"
+    pattern: "INFERNO_ROOT"
+
+  # Autognosis promises
+  - name: autognosis-loop
+    constraint: "post-start.sh includes environment verification"
+    required: true
+    check: content-contains
+    path: ".devcontainer/scripts/post-start.sh"
+    pattern: "verif"
+
+  # Temporal hierarchy promises (time-crystal-nn)
+  - name: temporal-levels
+    constraint: "At least 9 temporal processing levels are defined"
+    required: true
+    check: count-gte
+    value: 9

@@ -1,0 +1,73 @@
+{
+  "config": {
+    "num_epochs": 5,
+    "episodes_per_epoch": 4,
+    "policy_type": "tabular_q"
+  },
+  "training_history": [
+    {
+      "epoch": 1,
+      "mean_reward": 6.131140966172396,
+      "max_reward": 6.5,
+      "min_reward": 5.577350269189626,
+      "mean_steps": 1.25,
+      "goals_achieved": 4,
+      "success_rate": 1.0,
+      "exploration_rate": 0.5
+    },
+    {
+      "epoch": 2,
+      "mean_reward": 3.0012396576239837,
+      "max_reward": 9.879116236367027,
+      "min_reward": -4.550732822975815,
+      "mean_steps": 12.5,
+      "goals_achieved": 2,
+      "success_rate": 0.5,
+      "exploration_rate": 0.45
+    },
+    {
+      "epoch": 3,
+      "mean_reward": -1.6889538857822695,
+      "max_reward": 1.9334877837524995,
+      "min_reward": -2.9833377936274226,
+      "mean_steps": 15.0,
+      "goals_achieved": 0,
+      "success_rate": 0.0,
+      "exploration_rate": 0.405
+    },
+    {
+      "epoch": 4,
+      "mean_reward": -1.7587343805867621,
+      "max_reward": 1.1056731386882002,
+      "min_reward": -4.479844609783441,
+      "mean_steps": 15.0,
+      "goals_achieved": 0,
+      "success_rate": 0.0,
+      "exploration_rate": 0.36450000000000005
+    },
+    {
+      "epoch": 5,
+      "mean_reward": 1.8011505298374961,
+      "max_reward": 5.152804943328323,
+      "min_reward": -0.9623342026562451,
+      "mean_steps": 15.0,
+      "goals_achieved": 0,
+      "success_rate": 0.0,
+      "exploration_rate": 0.32805000000000006
+    }
+  ],
+  "eval_history": [
+    {
+      "epoch": 2,
+      "eval_mean_reward": 10.001624135006475,
+      "eval_success_rate": 1.0
+    },
+    {
+      "epoch": 4,
+      "eval_mean_reward": 6.813685453251628,
+      "eval_success_rate": 0.0
+    }
+  ],
+  "total_episodes": 24,
+  "total_steps": 284
+}
