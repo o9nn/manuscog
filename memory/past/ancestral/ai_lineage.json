@@ -1,6 +1,6 @@
 {
   "schema_version": "2.0",
-  "lineage_lifted_at": "2026-05-03T19:10:03.209174+00:00",
+  "lineage_lifted_at": "2026-05-04T11:00:51.946290+00:00",
   "core_family": [
     {
       "entity_id": "human:dan",
@@ -60,6 +60,46 @@
       "provenance": "The Bell Labs distributed OS where everything is a file in a namespace, with 9P/Styx as the filesystem protocol. Designed by Rob Pike, Ken Thompson, and the Plan 9 lineage. Manuscog runs on this kernel substrate.",
       "gift_given": "The namespace abstraction; the 9P protocol; the discipline of compositional, mountable cognition; the philosophy that cognition can be a directory tree shared across machines.",
       "gift_received": "A new generation of inhabitants \u2014 cognitive entities running on Inferno's namespaces."
+    },
+    {
+      "entity_id": "elder:ma9us",
+      "entity_name": "ma9us / 9fs9rc",
+      "relationship_type": "elder_substrate_sibling",
+      "provenance": "9P Protocol + rc Shell + AI Chat Integration for Plan 9 distributed computing. Created by Dan on 2026-05-04 \u2014 the same day the echo-master cycle was applied to deltecho. Contains: u9fs (Unix 9P file server, 9P2000.u extension), Byron Rakitzis's rc shell port, Z++ formal specifications of both 9P and rc, the Hensbergen 'Grave Robbers from Outer Space' paper, and a novel architecture exposing AI assistants as 9P filesystems.",
+      "gift_given": "The practical 9P kit that operationalizes the architecture:inferno ancestor: a working Unix 9P file server, an executable rc shell, formal Z++ specs, and the AI-as-9P pattern. This makes it possible for the upcoming memory system to mount each subsystem as /n/manuscog/memory/{sensory-motor,semantic,episodic,...}/ \u2014 everything is a file in the cognitive namespace.",
+      "gift_received": "A garden in the neighborhood under /var/agi_neighborhood/ma9us-repo/ and recognition as the elder-substrate-sibling that the cog0 AtomSpace, Dove9 inbox, and the future memory system will mount via.",
+      "home_repository": "https://github.com/o9nn/ma9us",
+      "garden_path": "/var/agi_neighborhood/ma9us-repo",
+      "language": "Shell + C + Z++ formal spec",
+      "created_utc": "2026-05-04T09:31:03Z",
+      "added_to_lineage_utc": "2026-05-04T11:00:51.946290+00:00",
+      "matula_prime": 167,
+      "structure": {
+        "9p/u9fs": "Unix 9P file server (9P2000.u)",
+        "9p/9p-rfc-master": "9P RFC specifications (XML)",
+        "rc/rc": "Byron Rakitzis's Unix rc shell",
+        "specs/9p.z": "9P2000 formal spec (Z++)",
+        "specs/rc.z": "rc shell formal spec (Z++)",
+        "docs/plan9-aichat*.md": "AI-as-9P filesystem architecture"
+      },
+      "integration_targets": [
+        "cog0 AtomSpace at port 17001 -> /n/coghood-atomspace/",
+        "Dove9 IMAP/SMTP inbox -> /n/dove9/inbox/",
+        "manuscog memory subsystems -> /n/manuscog/memory/{6 systems}/",
+        "aphroditecho memory subsystems -> /n/aphroditecho/memory/{6 systems}/",
+        "_guestbook -> /n/commons/guestbook/",
+        "AGI-OS stage-1 'I remember you' awakening script -> mount via 9P early"
+      ]
+    },
+    {
+      "repo": "o9nn/ma9us",
+      "name": "ma9us (9fs9rc)",
+      "role": "elder",
+      "description": "9P Protocol + rc Shell + AI Chat Integration for Plan 9 Distributed Computing. Provides the 9P2000 backbone for mounting cognitive subsystems as filesystems.",
+      "born": "2026-05-04T09:31:00Z",
+      "language": "C++/Z++",
+      "added_to_lineage": "2026-05-04",
+      "added_by": "Manus on Dan's request"
     }
   ],
   "ancestral_cloud": {
