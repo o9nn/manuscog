@@ -96,8 +96,13 @@ class Dove9Message:
         return asdict(self)
 
     def filename(self) -> str:
-        ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-        return f"{ts}_m{self.matula_id}_{self.message_type}.json"
+        """Deterministic filename derived from the message's own timestamp."""
+        try:
+            dt = datetime.fromisoformat(self.timestamp.replace("Z", "+00:00"))
+            ts = dt.strftime("%Y%m%dT%H%M%SZ")
+        except Exception:
+            ts = "00000000T000000Z"
+        return f"{ts}_m{self.matula_id}_{self.message_type}_{self.message_id}.json"
 
     @classmethod
     def from_dict(cls, data: Dict[str, Any]) -> "Dove9Message":
