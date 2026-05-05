@@ -66,14 +66,14 @@ graph TB
         FLOW[run_flow.py - Multi-Agent]
         MCP[run_mcp.py - MCP Server]
     end
-    
+
     subgraph "🤖 Agent Layer"
         MANUS[Manus - General Purpose]
         SWE[SWE - Software Engineering]
         BROWSER[Browser - Web Automation]
         DATA[Data Analysis]
     end
-    
+
     subgraph "🛠️ Tool Layer"
         PYTHON[Python Execution]
         FILES[File Operations]
@@ -81,27 +81,27 @@ graph TB
         CHARTS[Data Visualization]
         MCP_TOOLS[MCP Tools]
     end
-    
+
     subgraph "⚡ Infrastructure Layer"
         LLM[LLM Providers]
         CONFIG[Configuration]
         SANDBOX[Sandbox Environment]
         MEMORY[Memory Management]
     end
-    
+
     MAIN --> MANUS
     FLOW --> MANUS
     FLOW --> SWE
     FLOW --> BROWSER
     FLOW --> DATA
     MCP --> MANUS
-    
+
     MANUS --> PYTHON
     MANUS --> FILES
     MANUS --> WEB
     MANUS --> CHARTS
     MANUS --> MCP_TOOLS
-    
+
     PYTHON --> SANDBOX
     FILES --> CONFIG
     WEB --> CONFIG
@@ -120,15 +120,15 @@ from app.tool import ToolCollection
 class MyCustomAgent(ToolCallAgent):
     name = "CustomAgent"
     description = "Specialized agent for specific tasks"
-    
+
     # Configure available tools
     available_tools = ToolCollection(
         # Add your tools here
     )
-    
+
     # Custom system prompt
     system_prompt = "You are a specialized agent that..."
-    
+
     async def custom_behavior(self):
         """Implement custom agent behavior"""
         pass
@@ -161,7 +161,7 @@ class MyTool(BaseTool):
         },
         "required": ["param1"]
     }
-    
+
     async def execute(self, param1: str) -> ToolResult:
         try:
             result = self.perform_operation(param1)
@@ -295,7 +295,7 @@ result = await agent.execute_tool("mcp_tool", {
 ### Supported MCP Servers
 
 - **GitHub** - Repository operations
-- **Filesystem** - Advanced file operations  
+- **Filesystem** - Advanced file operations
 - **Database** - Database queries and operations
 - **Custom** - Build your own MCP servers
 

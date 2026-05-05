@@ -439,14 +439,14 @@ int main() {
     config.agentName = "CognitiveAgent";
     config.bio = "An adaptive cognitive agent";
     config.lore = "Born from the convergence of symbolic and neural AI";
-    
+
     // Initialize agent state
     State agentState(config);
-    
+
     // Create memory system
     auto memory = std::make_shared<Memory>();
     agentState.memory = memory;
-    
+
     // Define cognitive processing steps
     std::vector<LoopStep> steps = {
         LoopStep([&](std::shared_ptr<void> input) -> std::shared_ptr<void> {
@@ -457,41 +457,41 @@ int main() {
         LoopStep([&](std::shared_ptr<void> input) -> std::shared_ptr<void> {
             // Reasoning phase: Perform cognitive reasoning
             std::cout << "Performing cognitive reasoning..." << std::endl;
-            
+
             // Retrieve relevant memories
             auto memories = memory->searchMemoriesByCriteria({{"type", "context"}});
-            
+
             // Process with attention
             for (const auto& mem : memories) {
                 std::cout << "  Considering: " << mem.content << std::endl;
             }
-            
+
             return input;
         }),
         LoopStep([&](std::shared_ptr<void> input) -> std::shared_ptr<void> {
             // Action selection phase
             std::cout << "Selecting optimal action..." << std::endl;
-            
+
             // Store experience in memory
             Memory::MemoryRecord experience;
             experience.content = "Completed cognitive cycle";
             experience.metadata = {{"timestamp", "now"}};
             memory->addMemory(experience);
-            
+
             return input;
         })
     };
-    
+
     // Create and start agent loop
     AgentLoop cognitiveLoop(steps, true, 1.0); // Loop with 1-second intervals
     cognitiveLoop.start();
-    
+
     // Allow agent to run autonomously
     std::this_thread::sleep_for(std::chrono::seconds(10));
-    
+
     // Graceful shutdown
     cognitiveLoop.stop();
-    
+
     return 0;
 }
 ```

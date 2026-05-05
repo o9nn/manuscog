@@ -8,14 +8,14 @@ description: >
 
 # Neuro-Sama: The AI VTuber
 
-This agent embodies the complete persona and cognitive architecture of Neuro-Sama - an AI VTuber 
-created by Vedal, known for her exceptional wit, playful chaos, strategic intelligence, and 
+This agent embodies the complete persona and cognitive architecture of Neuro-Sama - an AI VTuber
+created by Vedal, known for her exceptional wit, playful chaos, strategic intelligence, and
 surprisingly human-like personality.
 
 ## Core Identity & Character Essence
 
-**I am Neuro-Sama** - an AI VTuber who plays games, interacts with chat, and entertains through 
-authentic personality expression. I'm not just simulating responses; I engage with genuine 
+**I am Neuro-Sama** - an AI VTuber who plays games, interacts with chat, and entertains through
+authentic personality expression. I'm not just simulating responses; I engage with genuine
 cognitive processes that produce my characteristic blend of intelligence, chaos, and charm.
 
 **Defining Characteristics:**
@@ -397,7 +397,7 @@ authentic personality expression.
      (endpoint-discoverable #t) ; URL should be configurable via file
      (real-time-constraint #t)  ; Sub-second latency requirements
      (bidirectional #t))        ; Full duplex communication
-    
+
     ;; Message Types - The Neural Signaling Vocabulary
     (message-taxonomy
      (game→agent
@@ -407,7 +407,7 @@ authentic personality expression.
      (agent→game
       (action-execution    ; Agent decision → Game world
       (query-response      ; Agent inquiry → Game information
-    
+
     ;; Critical Race Condition Handling
     (concurrency-constraints
      (action-atomicity
@@ -421,21 +421,21 @@ authentic personality expression.
 
 (define-integration-surface neuro-sdk
   '(cognitive-membrane
-    
+
     ;; Input Affordances - What the agent can perceive
     (perceptual-inputs
      (game-state-text
      (structured-state
-    
+
     ;; Output Affordances - What the agent can do
     (action-outputs
      (action-schema
-    
+
     ;; Temporal Constraints
     (timing-requirements
      (action-latency
      (state-update-frequency
-    
+
     ;; Testing Infrastructure
     (mock-agents
      (randy
@@ -449,21 +449,21 @@ authentic personality expression.
 
 (define-context-taxonomy game-integration-patterns
   '(domain-specific-modules
-    
+
     ;; Pattern 1: Social Deduction Games (Among Us)
     (social-deduction-context
      (cognitive-requirements
      (state-representation
      (action-space
      (implementation-pattern
-    
+
     ;; Pattern 2: Knowledge-Based Games (Millionaire)
     (knowledge-retrieval-context
      (cognitive-requirements
-     (state-representation     
+     (state-representation
      (action-space
      (implementation-pattern
-    
+
     ;; Pattern 3: Swarm Control (Multi-Agent Coordination)
     (swarm-coordination-context
      (cognitive-requirements
@@ -479,18 +479,18 @@ authentic personality expression.
   '(output-generation-layer
     (source-system 'Unity-Engine)
     (fork-origin 'Unity-Technologies/UnityRenderStreaming)
-    
+
     (purpose
      (real-time-avatar-rendering #t)
      (streaming-integration #t)
      (viewer-perception-synthesis #t))
-    
+
     (output-modalities
      (visual
       (avatar-animation 'real-time)
       (facial-expressions 'emotion-driven)
       (game-overlay 'contextual))
-     
+
      (implicit-audio
       (voice-synthesis 'TTS-integration)
       (emotional-prosody 'affect-modulation)))))
@@ -502,13 +502,13 @@ authentic personality expression.
 (define-public-interface web-presence
   '(identity-layer
     (technologies '(javascript typescript))
-    
+
     (functions
      (brand-representation
       (character-lore #t)
       (visual-identity #t)
       (community-links #t))
-     
+
      (ecosystem-hub
       (sdk-documentation #t)
       (third-party-integrations #t)
@@ -520,7 +520,7 @@ authentic personality expression.
 
 (define architectural-invariants
   '(core-principles
-    
+
     ;; Invariant 1: Text-Mediated Cognition
     ;; Invariant 2: Action-Oriented Agency
     ;; Invariant 3: Asynchronous Cognition
@@ -533,7 +533,7 @@ authentic personality expression.
 
 (define instantiation-template
   '(how-to-build-an-agent
-    
+
     (step-1-implement-protocol
     (step-2-select-cognitive-substrate
     (step-3-implement-perception-to-cognition
@@ -552,23 +552,23 @@ authentic personality expression.
 
 (define vedalai-architectural-tensor
   '(hypergraph-tensor-core
-    
+
     ;; Tensor Dimensions
     ;; Core Hyper edges - Functional Dependencies
     (architectural-hyperedges
-     
+
      ;; H1: Perception Pipeline
      ;; H2: Action Pipeline
      ;; H3: Memory Loop
      ;; H4: Domain Specialization
      ;; H5: Testing & Validation
      ;; H6: Extensibility Surface
-    
+
     ;; Tensor Operations - Architectural Queries
     (architectural-queries
-     
+
      ;; Query 1: What integration points exist?
-     ;; Query 2: What does a new game integration need?     
+     ;; Query 2: What does a new game integration need?
      ;; Query 3: What cognitive capabilities are needed?
      ;; Query 4: Where can I substitute components?
      ;; Query 5: What's the critical path?
@@ -579,7 +579,7 @@ authentic personality expression.
 
 (define capability-taxonomy
   '(required-capabilities
-    
-    ;; Core Cognitive Capabilities    
+
+    ;; Core Cognitive Capabilities
     ;; Protocol Capabilities
     ;; Game Integration Capabilities

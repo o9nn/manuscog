@@ -43,7 +43,7 @@
 
 ## Key Design Decisions
 
-1. **AtomSpace as State Space**: Agent observations are stored as atoms; 
+1. **AtomSpace as State Space**: Agent observations are stored as atoms;
    the state is the current AtomSpace configuration.
 
 2. **Cognitive Rewards**: Combine environment rewards with:
@@ -51,14 +51,14 @@
    - ECAN attention efficiency (focus utilization)
    - Autognosis self-improvement metrics
 
-3. **GiGPO + Cognitive Advantage**: Step-level grouping uses 
+3. **GiGPO + Cognitive Advantage**: Step-level grouping uses
    AtomSpace state fingerprints as anchor observations.
 
-4. **Modular Stages → Cognitive Cycle**: 
+4. **Modular Stages → Cognitive Cycle**:
    Planning = PLN forward chaining
    Action = Tool execution with ECAN focus
    Reflection = Autognosis self-monitoring
    Memory = AtomSpace persistence
 
-5. **No Heavy Dependencies**: Integration doesn't require torch/verl 
+5. **No Heavy Dependencies**: Integration doesn't require torch/verl
    for the cognitive layer; those are optional for full RL training.

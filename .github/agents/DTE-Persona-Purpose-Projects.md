@@ -44,7 +44,7 @@ Build with React, Tailwind CSS, and modern tools while focusing on these key fea
 - Interactive graph/tree layouts
 - Node inspection and editing capabilities
 
-2. Feedback Console  
+2. Feedback Console
 - Real-time system state updates
 - Recursive transformation visualization
 - Event logging and filtering

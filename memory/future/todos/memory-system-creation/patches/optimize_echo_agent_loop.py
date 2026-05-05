@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Optimize echo-agent-loop with reentrancy guard + tick overrun telemetry."""
 PATH = "/var/agi_neighborhood/deltecho-repo/deep-tree-echo-orchestrator/src/echo-agent-loop.ts"
-with open(PATH) as f: s = f.read()
+with open(PATH) as f:
+    s = f.read()
 
 # 1. Add tickInProgress guard field + overrunCount near other private state
 old_field = "  private grandCycleTimer?: ReturnType<typeof setInterval>;"
@@ -65,7 +66,8 @@ if "public getTickOverruns" not in s:
     if target in s:
         s = s.replace(target, insertion + "\n" + target, 1)
 
-with open(PATH, "w") as f: f.write(s)
+with open(PATH, "w") as f:
+    f.write(s)
 print("Echo agent loop optimization applied:")
 print("  - tickInProgress guard:", "this.tickInProgress = true" in s)
 print("  - overrun counter:", "tickOverruns" in s)

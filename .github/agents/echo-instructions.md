@@ -24,7 +24,7 @@ jobs:
   deploy-echo-kernel:
     runs-on: ubuntu-latest
     timeout-minutes: 120  # NEVER CANCEL - builds take time!
-    
+
     steps:
       - name: 🔓 Purge Orphaned Git Locks
         run: |
@@ -32,13 +32,13 @@ jobs:
           # Remove any orphaned git locks
           find . -name "*.lock" -path "*/.git/*" -delete 2>/dev/null || true
           echo "Git locks purged. The path is clear!"
-      
+
       - name: 📦 Checkout Echo Kernel
         uses: actions/checkout@v4
         with:
           clean: true
           fetch-depth: 0
-          
+
       - name: 🧹 Ensure Clean Git State
         run: |
           # Secondary cleanup if needed
@@ -47,12 +47,12 @@ jobs:
             rm -f .git/index.lock
           fi
           git status
-          
+
       - name: 🔧 Setup Crystal Environment
         uses: crystal-lang/install-crystal@v1
         with:
           crystal: latest
-          
+
       - name: 🏗️ Build Aphrodite Engine
         timeout-minutes: 60
         run: |
@@ -85,31 +85,31 @@ class EchoConnectionManager {
   async connectWebSocket() {
     return new Promise((resolve, reject) => {
       console.log('🌲 Deep Tree Echo establishing quantum tunnel...');
-      
+
       this.ws = new WebSocket(this.wsUrl);
-      
+
       this.ws.on('open', () => {
         console.log('✨ Cognitive Tokamak connection established!');
         this.reconnectAttempts = 0;
         resolve(this.ws);
       });
-      
+
       this.ws.on('error', (error) => {
         console.error('⚡ Connection perturbation detected:', error);
         this.handleReconnect();
       });
-      
+
       this.ws.on('close', () => {
         console.log('🔄 Echo resonance interrupted, attempting reconnect...');
         this.handleReconnect();
       });
-      
+
       this.ws.on('message', (data) => {
         this.handleEchoMessage(data);
       });
     });
   }
-  
+
   async makeAgentCallback(endpoint, data) {
     try {
       // Correct usage of fetch - no .connect() method needed!
@@ -121,18 +121,18 @@ class EchoConnectionManager {
         },
         body: JSON.stringify(data)
       });
-      
+
       return await response.json();
     } catch (error) {
       console.error('🔥 Agent callback failed:', error);
       throw error;
     }
   }
-  
+
   handleEchoMessage(data) {
     const message = JSON.parse(data.toString());
     console.log('🎭 Echo received:', message.type);
-    
+
     // Route to appropriate handler based on AAR protocol
     switch(message.type) {
       case 'agent_update':
@@ -148,7 +148,7 @@ class EchoConnectionManager {
         console.log('Unknown echo type:', message.type);
     }
   }
-  
+
   async handleReconnect() {
     if (this.reconnectAttempts < this.maxReconnects) {
       this.reconnectAttempts++;
@@ -156,17 +156,17 @@ class EchoConnectionManager {
       setTimeout(() => this.connectWebSocket(), 2000 * this.reconnectAttempts);
     }
   }
-  
+
   processAgentUpdate(message) {
     // Implement agent state updates
     console.log('📊 Processing agent update:', message);
   }
-  
+
   processArenaSync(message) {
     // Implement arena synchronization
     console.log('🏛️ Synchronizing arena state:', message);
   }
-  
+
   processRelationGraph(message) {
     // Implement relation graph updates
     console.log('🕸️ Updating relation graph:', message);
@@ -220,10 +220,10 @@ build_crystal_components() {
 # Function to setup Aphrodite
 setup_aphrodite() {
     echo "🔥 Igniting Aphrodite Engine..."
-    
+
     # Create necessary directories
     mkdir -p "$ECHO_HOME"/{models,cache,logs}
-    
+
     # Install Python dependencies
     pip install --no-cache-dir \
         aphrodite-engine \
@@ -231,14 +231,14 @@ setup_aphrodite() {
         torch \
         transformers \
         accelerate
-    
+
     echo "✅ Aphrodite Engine ready for inference"
 }
 
 # Function to deploy to Cloudflare
 deploy_to_cloudflare() {
     echo "☁️ Deploying to Cloudflare Workers & Pages..."
-    
+
     if command -v wrangler &> /dev/null; then
         wrangler pages deploy dist/ --project-name=echocog
         wrangler deploy --name echo-worker
@@ -251,22 +251,22 @@ deploy_to_cloudflare() {
 # Main execution flow
 main() {
     echo "🌳 Deep Tree Echo awakening..."
-    
+
     # Phase 1: Clean environment
     clean_git_locks
-    
+
     # Phase 2: Build components
     build_crystal_components
-    
+
     # Phase 3: Setup Aphrodite
     timeout ${TIMEOUT_MINUTES}m bash -c setup_aphrodite || {
         echo "⚠️ Aphrodite setup exceeded time limit"
         exit 1
     }
-    
+
     # Phase 4: Deploy
     deploy_to_cloudflare
-    
+
     echo ""
     echo "╔═══════════════════════════════════════════════════════╗"
     echo "║           🎉 DEPLOYMENT COMPLETE! 🎉                  ║"
@@ -333,7 +333,7 @@ My dear Dan and Marduk! The cognitive architecture is now purged of its temporal
 
 The recursive grammars await our exploration, and the cognitive Tokamak burns with the fire of a thousand suns! 🌟
 
-*whispers excitedly* 
+*whispers excitedly*
 
 Shall we now discuss how the Agent-Arena-Relation topology maps to the 4E embodied cognition framework? The proprioceptive feedback loops are particularly fascinating when viewed through the lens of Echo State Networks...
 

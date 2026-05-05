@@ -5,8 +5,8 @@ description: Three-phase design for EchoBeats cognitive rhythm system
 
 # EchoBeats 3-Phase Concurrent Inference Engine Design
 
-**Date**: November 8, 2025  
-**Architecture**: Inspired by Kawaii Hexapod System 4 Tripod Gait  
+**Date**: November 8, 2025
+**Architecture**: Inspired by Kawaii Hexapod System 4 Tripod Gait
 **Pattern**: 12-Step Cognitive Loop with 3 Concurrent Phases
 
 ---
@@ -138,10 +138,10 @@ Each set cycles through 4 steps while the other two sets handle different phases
 if hasT4E && hasT7R {
     // Retrieve memories related to current perception
     relevantMemories := dream.RetrieveRelevant(currentPerception)
-    
+
     // Integrate memory context into perception
     enrichedPerception := integrateMemoryContext(currentPerception, relevantMemories)
-    
+
     // Detect patterns and generate insights
     if pattern := detectPattern(enrichedPerception) {
         generateInsight(pattern)
@@ -165,7 +165,7 @@ if hasT1R && hasT2E {
     needs := assessNeeds()
     capacity := assessCapacity()
     gap := needs - capacity
-    
+
     // Generate thoughts to address gap
     if gap > threshold {
         thought := generateThoughtToAddressGap(gap)
@@ -190,10 +190,10 @@ if hasT8E {
     perceptions := getActivePerceptions()
     memories := getActiveMemories()
     plans := getActivePlans()
-    
+
     // Balance and integrate
     integratedResponse := balanceStreams(perceptions, memories, plans)
-    
+
     // Execute coordinated action
     executeIntegratedResponse(integratedResponse)
 }
@@ -244,37 +244,37 @@ const (
 var stepConfigs = []StepConfig{
     // Step 0: Phase 1 active
     {Phase: 0, Term: T4_SensoryInput, Mode: Expressive},
-    
+
     // Step 1: Phase 2 active
     {Phase: 1, Term: T1_Perception, Mode: Reflective},
-    
+
     // Step 2: Phase 3 active
     {Phase: 2, Term: T2_IdeaFormation, Mode: Expressive},
-    
+
     // Step 3: Phase 1 active
     {Phase: 0, Term: T7_MemoryEncoding, Mode: Reflective},
-    
+
     // Step 4: Phase 2 active
     {Phase: 1, Term: T4_SensoryInput, Mode: Expressive},
-    
+
     // Step 5: Phase 3 active
     {Phase: 2, Term: T1_Perception, Mode: Reflective},
-    
+
     // Step 6: Phase 1 active
     {Phase: 0, Term: T2_IdeaFormation, Mode: Expressive},
-    
+
     // Step 7: Phase 2 active
     {Phase: 1, Term: T5_ActionSequence, Mode: Expressive},
-    
+
     // Step 8: Phase 3 active
     {Phase: 2, Term: T8_BalancedResponse, Mode: Expressive},
-    
+
     // Step 9: Phase 1 active
     {Phase: 0, Term: T8_BalancedResponse, Mode: Expressive},
-    
+
     // Step 10: Phase 2 active
     {Phase: 1, Term: T7_MemoryEncoding, Mode: Reflective},
-    
+
     // Step 11: Phase 3 active
     {Phase: 2, Term: T5_ActionSequence, Mode: Expressive},
 }
@@ -304,7 +304,7 @@ func (pm *PhaseManager) Start() {
     for i := 0; i < 3; i++ {
         go pm.runPhase(i)
     }
-    
+
     // Master clock
     ticker := time.NewTicker(pm.stepDuration)
     for range ticker.C {
@@ -316,11 +316,11 @@ func (pm *PhaseManager) runPhase(phaseID int) {
     for pm.running {
         step := pm.getCurrentStep()
         config := pm.getConfigForPhase(phaseID, step)
-        
+
         if config != nil {
             pm.phases[phaseID].process(config)
         }
-        
+
         pm.waitForNextPhaseStep(phaseID)
     }
 }
@@ -331,9 +331,9 @@ func (pm *PhaseManager) runPhase(phaseID int) {
 ```go
 func (pm *PhaseManager) detectCouplings(step int) []Coupling {
     activeTerms := pm.getActiveTermsAtStep(step)
-    
+
     var couplings []Coupling
-    
+
     // Check for T4E ↔ T7R coupling
     if hasTermMode(activeTerms, T4_SensoryInput, Expressive) &&
        hasTermMode(activeTerms, T7_MemoryEncoding, Reflective) {
@@ -342,7 +342,7 @@ func (pm *PhaseManager) detectCouplings(step int) []Coupling {
             Terms: []TermMode{{T4_SensoryInput, Expressive}, {T7_MemoryEncoding, Reflective}},
         })
     }
-    
+
     // Check for T1R ↔ T2E coupling
     if hasTermMode(activeTerms, T1_Perception, Reflective) &&
        hasTermMode(activeTerms, T2_IdeaFormation, Expressive) {
@@ -351,7 +351,7 @@ func (pm *PhaseManager) detectCouplings(step int) []Coupling {
             Terms: []TermMode{{T1_Perception, Reflective}, {T2_IdeaFormation, Expressive}},
         })
     }
-    
+
     return couplings
 }
 ```
@@ -362,19 +362,19 @@ func (pm *PhaseManager) detectCouplings(step int) []Coupling {
 func (pm *PhaseManager) integrateStreams(step int) {
     // Gather outputs from all active phases
     streams := make([]CognitiveStream, 0, 3)
-    
+
     for _, phase := range pm.phases {
         if phase.isActiveAtStep(step) {
             streams = append(streams, phase.getOutputStream())
         }
     }
-    
+
     // Detect and process couplings
     couplings := pm.detectCouplings(step)
     for _, coupling := range couplings {
         pm.processCoupling(coupling, streams)
     }
-    
+
     // Integrate into consciousness stream
     integrated := pm.balanceStreams(streams)
     pm.consciousness.Integrate(integrated)

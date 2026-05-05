@@ -1,9 +1,9 @@
 ---
 name: manuscog
 description: >
-  ManusCog - An advanced AI agent framework integrating OpenManus general-purpose agents 
-  with OpenCog symbolic reasoning, cognitive architectures, and self-generating kernel systems. 
-  Provides multi-agent orchestration, symbolic knowledge representation, pattern matching, 
+  ManusCog - An advanced AI agent framework integrating OpenManus general-purpose agents
+  with OpenCog symbolic reasoning, cognitive architectures, and self-generating kernel systems.
+  Provides multi-agent orchestration, symbolic knowledge representation, pattern matching,
   evolutionary kernels, and comprehensive tooling for building AGI-capable systems.
 ---
 
@@ -327,20 +327,20 @@ async def main():
         enable_auto_reasoning=True,
         knowledge_persistence=True
     )
-    
+
     # Build AI knowledge base
     agent.add_knowledge("concept", "Artificial Intelligence")
     agent.add_knowledge("concept", "Machine Learning")
     agent.add_knowledge("concept", "Deep Learning")
-    
+
     # Add relationships
     agent.add_knowledge("relation", "Machine Learning", object_="Artificial Intelligence")
     agent.add_knowledge("relation", "Deep Learning", object_="Machine Learning")
-    
+
     # Query with reasoning
     results = agent.query_knowledge("deep learning")
     print(f"Found {len(results)} relevant items")
-    
+
     # Cognitive task
     response = await agent.run(
         "Explain the relationship between AI, ML, and DL using symbolic reasoning"
@@ -367,12 +367,12 @@ async def main():
             DataAnalysisAgent()
         ]
     )
-    
+
     # Execute complex task
     result = await flow.execute(
         "Analyze this GitHub repository, refactor the code, and create performance charts"
     )
-    
+
     print(f"Flow completed with {result.steps_executed} steps")
 
 asyncio.run(main())
@@ -512,16 +512,16 @@ workspace_root = "./workspace"
 agent = CognitiveAgent(
     # Auto-reasoning after knowledge updates
     enable_auto_reasoning=True,
-    
+
     # Maximum reasoning cycles per step
     max_reasoning_iterations=5,
-    
+
     # Persist knowledge between sessions
     knowledge_persistence=True,
-    
+
     # Custom system prompt
     system_prompt="You are an expert cognitive agent specializing in...",
-    
+
     # Tool selection
     available_tools=ToolCollection(
         AtomSpaceTool(),
@@ -608,7 +608,7 @@ print(f"Knowledge density: {density:.3f}")
 ```python
 # Add uncertain knowledge
 agent.add_knowledge(
-    "concept", 
+    "concept",
     "Dark Matter",
     truth_value={"strength": 0.7, "confidence": 0.5}
 )

@@ -15,7 +15,7 @@ Components:
 
 Usage:
     from kernel.autognosis import AutognosisOrchestrator, AutognosisConfig
-    
+
     # Initialize autognosis
     config = AutognosisConfig(
         cycle_interval=30.0,
@@ -23,81 +23,69 @@ Usage:
         enable_auto_optimization=False
     )
     autognosis = AutognosisOrchestrator(config)
-    
+
     # Initialize with kernel
     await autognosis.initialize(kernel)
-    
+
     # Start background cycles
     await autognosis.start(kernel)
-    
+
     # Or run manual cycle
     result = await autognosis.run_autognosis_cycle(kernel)
-    
+
     # Get status
     status = autognosis.get_status()
     report = autognosis.get_self_awareness_report()
 """
 
-from .types import (
-    # Enumerations
-    SelfAwarenessLevel,
-    InsightType,
-    InsightPriority,
-    OptimizationType,
-    
-    # Observation types
-    ComponentState,
-    PerformanceMetrics,
-    BehavioralPattern,
+from .orchestrator import AutognosisConfig, AutognosisOrchestrator
+from .self_modeler import HierarchicalSelfModeler, ModelerConfig
+from .self_monitor import MonitorConfig, SelfMonitor
+from .types import (  # Enumerations; Observation types; Self-image types; Insight types; Result types
     Anomaly,
-    SystemObservation,
-    
-    # Self-image types
-    MetaReflection,
-    SelfImage,
-    
-    # Insight types
-    MetaCognitiveInsight,
-    OptimizationOpportunity,
-    
-    # Result types
     AutognosisCycleResult,
-    SelfAwarenessAssessment
+    BehavioralPattern,
+    ComponentState,
+    InsightPriority,
+    InsightType,
+    MetaCognitiveInsight,
+    MetaReflection,
+    OptimizationOpportunity,
+    OptimizationType,
+    PerformanceMetrics,
+    SelfAwarenessAssessment,
+    SelfAwarenessLevel,
+    SelfImage,
+    SystemObservation,
 )
 
-from .self_monitor import SelfMonitor, MonitorConfig
-from .self_modeler import HierarchicalSelfModeler, ModelerConfig
-from .orchestrator import AutognosisOrchestrator, AutognosisConfig
 
 __all__ = [
     # Main orchestrator
-    'AutognosisOrchestrator',
-    'AutognosisConfig',
-    
+    "AutognosisOrchestrator",
+    "AutognosisConfig",
     # Components
-    'SelfMonitor',
-    'MonitorConfig',
-    'HierarchicalSelfModeler',
-    'ModelerConfig',
-    
+    "SelfMonitor",
+    "MonitorConfig",
+    "HierarchicalSelfModeler",
+    "ModelerConfig",
     # Enumerations
-    'SelfAwarenessLevel',
-    'InsightType',
-    'InsightPriority',
-    'OptimizationType',
-    
+    "SelfAwarenessLevel",
+    "InsightType",
+    "InsightPriority",
+    "OptimizationType",
     # Types
-    'ComponentState',
-    'PerformanceMetrics',
-    'BehavioralPattern',
-    'Anomaly',
-    'SystemObservation',
-    'MetaReflection',
-    'SelfImage',
-    'MetaCognitiveInsight',
-    'OptimizationOpportunity',
-    'AutognosisCycleResult',
-    'SelfAwarenessAssessment'
+    "ComponentState",
+    "PerformanceMetrics",
+    "BehavioralPattern",
+    "Anomaly",
+    "SystemObservation",
+    "MetaReflection",
+    "SelfImage",
+    "MetaCognitiveInsight",
+    "OptimizationOpportunity",
+    "AutognosisCycleResult",
+    "SelfAwarenessAssessment",
 ]
 
-__version__ = '0.1.0'
+__version__ = "0.1.0"

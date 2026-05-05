@@ -7,7 +7,7 @@ This guide provides comprehensive instructions for using the OpenCog symbolic AI
 The OpenCog integration provides three core capabilities:
 
 1. **Knowledge Representation** - Store and manipulate symbolic knowledge using AtomSpace
-2. **Symbolic Reasoning** - Perform forward/backward chaining inference with logical rules  
+2. **Symbolic Reasoning** - Perform forward/backward chaining inference with logical rules
 3. **Pattern Matching** - Find patterns, similarities, and connections in knowledge graphs
 
 ## Quick Start
@@ -33,17 +33,17 @@ async def main():
         knowledge_persistence=True,
         max_reasoning_iterations=5
     )
-    
+
     # Build knowledge base
     agent.add_knowledge("concept", "Artificial Intelligence")
     agent.add_knowledge("concept", "Machine Learning")
     agent.add_knowledge("relation", "Machine Learning", object_="Artificial Intelligence")
     agent.add_knowledge("fact", "Machine Learning", "learns_from", "data")
-    
+
     # Query and analyze
     results = agent.query_knowledge("machine learning")
     print(f"Found {len(results)} relevant items")
-    
+
     # Use cognitive capabilities
     response = await agent.run("Explain the relationship between AI and Machine Learning using symbolic reasoning")
     print(response)
@@ -60,7 +60,7 @@ The AtomSpace provides the foundation for symbolic knowledge representation:
 #### Core Concepts
 
 - **Atoms**: Basic units of knowledge (concepts, predicates, relationships)
-- **Truth Values**: Uncertainty representation with strength and confidence  
+- **Truth Values**: Uncertainty representation with strength and confidence
 - **Links**: Relationships between atoms (inheritance, evaluation, etc.)
 - **Indices**: Fast lookup by name and type
 
@@ -75,14 +75,14 @@ atomspace = AtomSpaceManager()
 ai_id = atomspace.add_concept("AI")
 ml_id = atomspace.add_concept("Machine Learning")
 
-# Add relationships  
+# Add relationships
 inheritance_id = atomspace.add_inheritance("Machine Learning", "AI")
 
 # Add facts
 fact_id = atomspace.add_evaluation("processes", "Machine Learning", "data")
 
 # Add with uncertainty
-uncertain_id = atomspace.add_concept("Hypothesis", 
+uncertain_id = atomspace.add_concept("Hypothesis",
                                    truth_value={"strength": 0.7, "confidence": 0.6})
 
 # Query
@@ -171,7 +171,7 @@ results = matcher.match_query("ConceptNode(AI)")
 # Similarity search
 similar_atoms = matcher.find_similar_atoms(ai_id, similarity_threshold=0.7)
 
-# Find connected atoms  
+# Find connected atoms
 connected = matcher.find_connected_atoms(ai_id, max_depth=3)
 
 # Explain matches
@@ -196,7 +196,7 @@ await agent.call_tool("atomspace", {
 })
 
 await agent.call_tool("atomspace", {
-    "operation": "query", 
+    "operation": "query",
     "query_text": "artificial intelligence"
 })
 ```
@@ -266,7 +266,7 @@ agent = CognitiveAgent(
 ### Component Configuration
 
 ```python
-# AtomSpace settings  
+# AtomSpace settings
 atomspace = AtomSpaceManager()
 # (Currently uses default configuration)
 
@@ -291,7 +291,7 @@ matcher = PatternMatcher(
 ```python
 # Start with core concepts
 agent.add_knowledge("concept", "Domain")
-agent.add_knowledge("concept", "Subdomain") 
+agent.add_knowledge("concept", "Subdomain")
 
 # Build hierarchies
 agent.add_knowledge("relation", "Subdomain", object_="Domain")
@@ -304,7 +304,7 @@ agent.add_knowledge("fact", "Subdomain", "property", "value")
 
 ```python
 # Use appropriate certainty levels
-agent.add_knowledge("concept", "Certain Fact", 
+agent.add_knowledge("concept", "Certain Fact",
                    truth_value={"strength": 1.0, "confidence": 1.0})
 
 agent.add_knowledge("concept", "Hypothesis",
@@ -318,7 +318,7 @@ agent.add_knowledge("concept", "Hypothesis",
 for concept in core_concepts:
     agent.add_knowledge("concept", concept)
 
-# Run reasoning periodically  
+# Run reasoning periodically
 await agent._perform_cognitive_reasoning()
 
 # Validate consistency
@@ -363,7 +363,7 @@ python run_cognitive_agent.py --persist-knowledge --prompt "Continue previous se
 # Save knowledge
 python run_cognitive_agent.py --save-knowledge my_knowledge.json
 
-# Load knowledge  
+# Load knowledge
 python run_cognitive_agent.py --load-knowledge my_knowledge.json --prompt "Query loaded knowledge"
 
 # Combined operations
@@ -409,7 +409,7 @@ print(f"Knowledge maturity: {insights['knowledge_graph_analysis']['maturity']['l
 # Build domain knowledge
 for topic in research_topics:
     agent.add_knowledge("concept", topic)
-    
+
 # Add relationships and evidence
 for relationship in domain_relationships:
     agent.add_knowledge("relation", relationship[0], object_=relationship[1])
@@ -423,7 +423,7 @@ await agent.run("Analyze the research domain and identify potential connections 
 ```python
 # Build curriculum knowledge
 agent.add_knowledge("concept", "Machine Learning")
-agent.add_knowledge("concept", "Prerequisites") 
+agent.add_knowledge("concept", "Prerequisites")
 agent.add_knowledge("relation", "Machine Learning", object_="Prerequisites")
 
 # Adaptive learning

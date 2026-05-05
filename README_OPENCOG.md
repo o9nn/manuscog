@@ -157,7 +157,7 @@ For developers and system architects who want to understand the technical detail
 
 Key documentation includes:
 - **[System Architecture](docs/ARCHITECTURE.md)** - Complete technical overview with Mermaid diagrams
-- **[Agent Framework](docs/AGENT_FRAMEWORK.md)** - Agent system design and development guide  
+- **[Agent Framework](docs/AGENT_FRAMEWORK.md)** - Agent system design and development guide
 - **[Tool System](docs/TOOL_SYSTEM.md)** - Tool architecture and custom tool development
 - **[Flow Management](docs/FLOW_MANAGEMENT.md)** - Multi-agent coordination and workflow patterns
 
@@ -168,20 +168,20 @@ graph TB
     subgraph "User Interface"
         CLI[Command Line Interface]
     end
-    
+
     subgraph "Application Layer"
         MAIN[main.py - Single Agent]
         FLOW[run_flow.py - Multi-Agent]
         MCP[run_mcp.py - MCP Server]
     end
-    
+
     subgraph "Agent Layer"
         MANUS[Manus Agent]
         SWE[SWE Agent]
         BROWSER[Browser Agent]
         DATA[Data Analysis Agent]
     end
-    
+
     subgraph "Tool Layer"
         PYTHON[Python Execute]
         FILES[File Operations]
@@ -189,29 +189,29 @@ graph TB
         CHARTS[Data Visualization]
         MCP_TOOLS[MCP Tools]
     end
-    
+
     subgraph "Infrastructure"
         LLM[LLM Providers]
         CONFIG[Configuration]
         SANDBOX[Sandbox Environment]
     end
-    
+
     CLI --> MAIN
     CLI --> FLOW
     CLI --> MCP
-    
+
     MAIN --> MANUS
     FLOW --> MANUS
     FLOW --> SWE
     FLOW --> BROWSER
     FLOW --> DATA
-    
+
     MANUS --> PYTHON
     MANUS --> FILES
     MANUS --> WEB
     MANUS --> CHARTS
     MANUS --> MCP_TOOLS
-    
+
     PYTHON --> SANDBOX
     FILES --> CONFIG
     WEB --> LLM

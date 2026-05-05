@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 PATH = "/var/agi_neighborhood/deltecho-repo/deep-tree-echo-orchestrator/src/__tests__/cognitive-tier-integration.test.ts"
-with open(PATH) as f: s = f.read()
+with open(PATH) as f:
+    s = f.read()
 old = """type Orchestrator = import('../orchestrator.js').Orchestrator;
 type CognitiveTierMode = import('../orchestrator.js').CognitiveTierMode;
 
@@ -35,5 +36,6 @@ describe('Cognitive Tier Integration', () => {
 if old not in s:
     raise SystemExit("pattern still not found")
 s = s.replace(old, new, 1)
-with open(PATH, "w") as f: f.write(s)
+with open(PATH, "w") as f:
+    f.write(s)
 print("OK: cognitive-tier test fixed")

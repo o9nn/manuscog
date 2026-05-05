@@ -17,6 +17,7 @@ import json
 import re
 from pathlib import Path
 
+
 INPUT = Path("/home/ubuntu/upload/pasted_content.txt")
 OUT_DIR = Path("/home/ubuntu/dte-evolution/hypergraph")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -44,12 +45,10 @@ MEMBRANE_MAP = {
     "atomspace-agents": "extension.agents.atomspace",
     "atomese-simd": "cognitive.memory.compute.simd",
     "cogserver": "communication.distributed.cogserver",
-
     # Echo Propagation Engine
     "attention": "echo.propagation.attention",  # ECAN
     "miner": "echo.propagation.pattern_mining",
     "matrix": "echo.propagation.sparse_vector",
-
     # Reasoning Membrane
     "pln": "cognitive.reasoning.probabilistic",
     "ure": "cognitive.reasoning.unified_rules",
@@ -60,7 +59,6 @@ MEMBRANE_MAP = {
     "tv-toolbox": "cognitive.reasoning.truth_value",
     "distributional-value": "cognitive.reasoning.distributional",
     "evidence": "autognosis.evidence_gathering",
-
     # Grammar Membrane
     "link-grammar": "cognitive.grammar.link",
     "lg-atomese": "cognitive.grammar.atomese_bridge",
@@ -68,7 +66,6 @@ MEMBRANE_MAP = {
     "language-learning": "cognitive.grammar.unsupervised",
     "stochastic-language-generation": "cognitive.grammar.generation",
     "generate": "cognitive.grammar.network_synthesis",
-
     # Sensory Motor Interface
     "sensory": "extension.sensory.io",
     "vision": "extension.sensory.vision",
@@ -79,7 +76,6 @@ MEMBRANE_MAP = {
     "destin": "extension.sensory.deep_spatiotemporal",
     "python-destin": "extension.sensory.deep_spatiotemporal.python",
     "pi_vision": "extension.sensory.pi_vision",
-
     # Embodiment / Robotics
     "TinyCog": "embodiment.platform.tiny_robot",
     "blender_api": "embodiment.avatar.blender",
@@ -91,19 +87,16 @@ MEMBRANE_MAP = {
     "ros_opencog_robot_embodiment": "embodiment.robot.ros",
     "unity3d-opencog-game": "embodiment.simulation.unity3d",
     "opencog-to-minecraft": "embodiment.simulation.minecraft",
-
     # Agents / Orchestration
     "agents": "extension.evolution.echo_agent",
     "rocca": "extension.evolution.rational_controlled_agent",
     "loving-ai": "extension.dialog.loving_ai",
     "loving-ai-ghost": "extension.dialog.loving_ai_ghost",
     "linkgrammar-relex-web": "extension.dialog.lg_relex_web",
-
     # Domain
     "agi-bio": "domain.bio.genomic",
     "cheminformatics": "domain.chem.molecular",
     "pln-brca-xp": "domain.bio.brca",
-
     # Infrastructure
     "cogutil": "infrastructure.cpp_utility",
     "ocpkg": "infrastructure.packaging",
@@ -121,7 +114,6 @@ MEMBRANE_MAP = {
     "dimensional-embedding": "cognitive.embedding.dimensional",
     "benchmark": "infrastructure.benchmark",
     "test-datasets": "infrastructure.test_data",
-
     # Meta / Documentation / Web
     ".github": "meta.profile_readme",
     "opencog.org": "meta.website",
@@ -161,7 +153,11 @@ def parse_row(line: str) -> dict | None:
             continue
         if re.match(r"^[0-9]+(\.[0-9]+)?[kKmM]?$", p):
             nums.append(p)
-        elif re.match(r"^[A-Za-z][A-Za-z0-9 +#\-_.]*$", p) and not language and len(p) < 30:
+        elif (
+            re.match(r"^[A-Za-z][A-Za-z0-9 +#\-_.]*$", p)
+            and not language
+            and len(p) < 30
+        ):
             language = p
         # Skip "39 forks" / "191 stars" / "0 pull requests" labels
     forks = nums[0] if len(nums) > 0 else "0"
@@ -229,7 +225,9 @@ def main() -> None:
     print(f"Archived: {len(archived)}")
     by_lang: dict[str, int] = {}
     for r in repos:
-        by_lang[r["language"] or "(none)"] = by_lang.get(r["language"] or "(none)", 0) + 1
+        by_lang[r["language"] or "(none)"] = (
+            by_lang.get(r["language"] or "(none)", 0) + 1
+        )
     print("Languages:")
     for lang, n in sorted(by_lang.items(), key=lambda x: -x[1]):
         print(f"  {lang}: {n}")

@@ -25,7 +25,7 @@ three fundamental triads that interpenetrate and mutually constitute each other.
 
 ```
                     RELEVANCE REALIZATION ENNEAD
-                              
+
                     ╔════════════════════════╗
                     ║   TRIAD OF KNOWING     ║
                     ║  (Epistemological)     ║
@@ -498,12 +498,12 @@ The Ennead is both:
 
 ---
 
-*"The Ennead is not nine separate things, but one reality seen from nine 
-essential perspectives - a triad of triads united in the process of relevance 
+*"The Ennead is not nine separate things, but one reality seen from nine
+essential perspectives - a triad of triads united in the process of relevance
 realization and the cultivation of wisdom."*
 
-*"As Plotinus's Enneads described the One flowing through Intellect to Soul, 
-so the Relevance Realization Ennead describes cognition flowing through knowing 
+*"As Plotinus's Enneads described the One flowing through Intellect to Soul,
+so the Relevance Realization Ennead describes cognition flowing through knowing
 and understanding to wisdom."*
 
 *"Know all ways, understand all orders, practice all wisdoms - this is the path."*

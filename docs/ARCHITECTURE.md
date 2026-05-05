@@ -25,20 +25,20 @@ graph TB
         UI[User Input]
         CLI[Command Line Interface]
     end
-    
+
     subgraph "Application Layer"
         MAIN[main.py]
         FLOW[run_flow.py]
         MCP[run_mcp.py]
     end
-    
+
     subgraph "Agent Layer"
         MANUS[Manus Agent]
         SWE[SWE Agent]
         BROWSER[Browser Agent]
         DATA[Data Analysis Agent]
     end
-    
+
     subgraph "Tool Layer"
         PYTHON[Python Execute]
         BROWSER_TOOL[Browser Use Tool]
@@ -46,49 +46,49 @@ graph TB
         SEARCH[Web Search]
         MCP_TOOLS[MCP Tools]
     end
-    
+
     subgraph "Infrastructure Layer"
         LLM[LLM Providers]
         CONFIG[Configuration]
         MEMORY[Memory System]
         SANDBOX[Sandbox Environment]
     end
-    
+
     UI --> CLI
     CLI --> MAIN
     CLI --> FLOW
     CLI --> MCP
-    
+
     MAIN --> MANUS
     FLOW --> MANUS
     FLOW --> SWE
     FLOW --> BROWSER
     FLOW --> DATA
     MCP --> MANUS
-    
+
     MANUS --> PYTHON
     MANUS --> BROWSER_TOOL
     MANUS --> FILE
     MANUS --> SEARCH
     MANUS --> MCP_TOOLS
-    
+
     SWE --> FILE
     SWE --> PYTHON
     BROWSER --> BROWSER_TOOL
     DATA --> PYTHON
     DATA --> FILE
-    
+
     PYTHON --> SANDBOX
     BROWSER_TOOL --> LLM
     FILE --> CONFIG
     SEARCH --> CONFIG
     MCP_TOOLS --> CONFIG
-    
+
     MANUS --> LLM
     SWE --> LLM
     BROWSER --> LLM
     DATA --> LLM
-    
+
     MANUS --> MEMORY
     SWE --> MEMORY
     BROWSER --> MEMORY
@@ -114,14 +114,14 @@ classDiagram
         +step() Promise
         +cleanup() Promise
     }
-    
+
     class ToolCallAgent {
         +ToolCollection available_tools
         +list special_tool_names
         +execute_tool(tool_call) Promise
         +get_tool_output() string
     }
-    
+
     class Manus {
         +MCPClients mcp_clients
         +BrowserContextHelper browser_context
@@ -129,24 +129,24 @@ classDiagram
         +connect_mcp_server(url) Promise
         +disconnect_mcp_server(id) Promise
     }
-    
+
     class SWEAgent {
         +string workspace_root
         +list allowed_tools
         +validate_file_operation() bool
     }
-    
+
     class BrowserAgent {
         +BrowserController controller
         +handle_browser_action() Promise
     }
-    
+
     class DataAnalysisAgent {
         +ChartVisualization chart_tool
         +analyze_data() Promise
         +create_visualization() Promise
     }
-    
+
     BaseAgent <|-- ToolCallAgent
     ToolCallAgent <|-- Manus
     ToolCallAgent <|-- SWEAgent
@@ -167,36 +167,36 @@ classDiagram
         +execute(**kwargs) Promise
         +to_param() Dict
     }
-    
+
     class PythonExecute {
         +execute_code(code) Promise
         +validate_syntax(code) bool
     }
-    
+
     class BrowserUseTool {
         +navigate(url) Promise
         +click(selector) Promise
         +type(text) Promise
         +take_screenshot() Promise
     }
-    
+
     class StrReplaceEditor {
         +create_file(path, content) Promise
         +view_file(path) Promise
         +str_replace(old, new) Promise
     }
-    
+
     class WebSearch {
         +search(query) Promise
         +get_results() List
     }
-    
+
     class MCPClientTool {
         +string server_id
         +connect_server() Promise
         +call_tool(name, args) Promise
     }
-    
+
     BaseTool <|-- PythonExecute
     BaseTool <|-- BrowserUseTool
     BaseTool <|-- StrReplaceEditor
@@ -220,17 +220,17 @@ stateDiagram-v2
     ACTING --> FAILED: tool_error()
     COMPLETED --> [*]
     FAILED --> [*]
-    
+
     note right of THINKING
         Agent analyzes situation
         and decides next action
     end note
-    
+
     note right of ACTING
         Agent executes selected
         tool with parameters
     end note
-    
+
     note right of OBSERVING
         Agent processes tool
         output and updates memory
@@ -246,24 +246,24 @@ graph TB
         LONG[Long-term Memory]
         CONTEXT[Context Buffer]
     end
-    
+
     subgraph "Message Types"
         SYSTEM[System Messages]
         USER[User Messages]
         ASSISTANT[Assistant Messages]
         TOOL[Tool Messages]
     end
-    
+
     INPUT[User Input] --> SHORT
     SHORT --> CONTEXT
     CONTEXT --> LLM[LLM Processing]
     LLM --> ASSISTANT
     ASSISTANT --> SHORT
-    
+
     TOOL --> SHORT
     SHORT --> LONG
     LONG --> CONTEXT
-    
+
     SYSTEM --> CONTEXT
     USER --> CONTEXT
 ```
@@ -279,38 +279,38 @@ graph TB
         BASH[Bash Commands]
         DOCKER[Docker Container]
     end
-    
+
     subgraph "File Operations"
         FILE_READ[File Reader]
         FILE_WRITE[File Writer]
         STR_REPLACE[String Replace Editor]
     end
-    
+
     subgraph "Web & Browser"
         BROWSER[Browser Use Tool]
         WEB_SEARCH[Web Search]
         CRAWL[Web Crawler]
     end
-    
+
     subgraph "Data & Analysis"
         CHART[Chart Visualization]
         DATA_PROC[Data Processing]
     end
-    
+
     subgraph "Communication"
         ASK_HUMAN[Ask Human]
         TERMINATE[Terminate]
     end
-    
+
     subgraph "External Integration"
         MCP_CLIENT[MCP Client Tool]
         API_TOOLS[API Tools]
     end
-    
+
     subgraph "Planning & Coordination"
         PLANNING[Planning Tool]
     end
-    
+
     AGENT[Agent] --> PYTHON
     AGENT --> FILE_READ
     AGENT --> BROWSER
@@ -328,7 +328,7 @@ sequenceDiagram
     participant TC as ToolCollection
     participant T as Tool
     participant ENV as Environment
-    
+
     A->>TC: get_tool(name)
     TC->>A: return tool instance
     A->>T: validate_parameters(params)
@@ -351,22 +351,22 @@ graph TB
         EXECUTOR[Executor Agents]
         MONITOR[Progress Monitor]
     end
-    
+
     subgraph "Plan Structure"
         STEPS[Plan Steps]
         STATUS[Step Status]
         DEPS[Dependencies]
     end
-    
+
     USER_INPUT[User Input] --> PLANNER
     PLANNER --> STEPS
     STEPS --> STATUS
     STATUS --> DEPS
-    
+
     PLANNER --> EXECUTOR
     EXECUTOR --> MONITOR
     MONITOR --> PLANNER
-    
+
     EXECUTOR --> TOOLS[Available Tools]
     TOOLS --> RESULTS[Execution Results]
     RESULTS --> MONITOR
@@ -381,12 +381,12 @@ sequenceDiagram
     participant PA as Planning Agent
     participant EA as Executor Agent
     participant T as Tools
-    
+
     U->>PF: submit task
     PF->>PA: create plan
     PA->>PA: analyze task
     PA->>PF: return plan steps
-    
+
     loop For each step
         PF->>EA: assign step
         EA->>T: execute actions
@@ -394,7 +394,7 @@ sequenceDiagram
         EA->>PF: report completion
         PF->>PA: update plan status
     end
-    
+
     PF->>U: final results
 ```
 
@@ -408,7 +408,7 @@ graph TB
         LLM_BASE[LLM Base Class]
         CONFIG[LLM Configuration]
     end
-    
+
     subgraph "Provider Implementations"
         OPENAI[OpenAI Provider]
         ANTHROPIC[Anthropic Provider]
@@ -416,21 +416,21 @@ graph TB
         OLLAMA[Ollama Provider]
         BEDROCK[AWS Bedrock Provider]
     end
-    
+
     subgraph "Specialized Models"
         VISION[Vision Models]
         CODING[Code Models]
         GENERAL[General Models]
     end
-    
+
     LLM_BASE --> OPENAI
     LLM_BASE --> ANTHROPIC
     LLM_BASE --> AZURE
     LLM_BASE --> OLLAMA
     LLM_BASE --> BEDROCK
-    
+
     CONFIG --> LLM_BASE
-    
+
     OPENAI --> VISION
     ANTHROPIC --> VISION
     AZURE --> CODING
@@ -445,7 +445,7 @@ sequenceDiagram
     participant A as Agent
     participant LLM as LLM Provider
     participant API as External API
-    
+
     A->>A: prepare_messages()
     A->>LLM: create_completion(messages)
     LLM->>LLM: format_request()
@@ -467,26 +467,26 @@ graph TB
         SERVER_MGR[Server Manager]
         TRANSPORT[Transport Layer]
     end
-    
+
     subgraph "MCP Servers"
         GITHUB[GitHub MCP]
         FILESYSTEM[Filesystem MCP]
         DATABASE[Database MCP]
         CUSTOM[Custom MCP Servers]
     end
-    
+
     subgraph "Agent Integration"
         MANUS_AGENT[Manus Agent]
         TOOL_COLLECTION[Tool Collection]
         MCP_TOOL[MCP Client Tool]
     end
-    
+
     MANUS_AGENT --> TOOL_COLLECTION
     TOOL_COLLECTION --> MCP_TOOL
     MCP_TOOL --> MCP_CLIENT
     MCP_CLIENT --> SERVER_MGR
     SERVER_MGR --> TRANSPORT
-    
+
     TRANSPORT --> GITHUB
     TRANSPORT --> FILESYSTEM
     TRANSPORT --> DATABASE
@@ -501,14 +501,14 @@ sequenceDiagram
     participant MCT as MCP Tool
     participant MC as MCP Client
     participant MS as MCP Server
-    
+
     A->>MCT: connect_server(url)
     MCT->>MC: initialize_connection()
     MC->>MS: handshake
     MS->>MC: capabilities
     MC->>MCT: connection_ready
     MCT->>A: server_connected
-    
+
     A->>MCT: call_tool(name, params)
     MCT->>MC: send_request()
     MC->>MS: tool_call
@@ -529,7 +529,7 @@ graph TB
         ENV_VARS[Environment Variables]
         CLI_ARGS[CLI Arguments]
     end
-    
+
     subgraph "Configuration Categories"
         LLM_CONFIG[LLM Configuration]
         BROWSER_CONFIG[Browser Configuration]
@@ -538,12 +538,12 @@ graph TB
         MCP_CONFIG[MCP Configuration]
         RUNFLOW_CONFIG[RunFlow Configuration]
     end
-    
+
     DEFAULT --> LLM_CONFIG
     CONFIG_FILE --> LLM_CONFIG
     ENV_VARS --> LLM_CONFIG
     CLI_ARGS --> LLM_CONFIG
-    
+
     CONFIG_FILE --> BROWSER_CONFIG
     CONFIG_FILE --> SEARCH_CONFIG
     CONFIG_FILE --> SANDBOX_CONFIG
@@ -566,7 +566,7 @@ flowchart TD
     RUN --> RESULT[Process Results]
     RESULT --> CLEANUP[Agent Cleanup]
     CLEANUP --> END([End])
-    
+
     subgraph "Agent.run() Internal Flow"
         RUN --> INIT[Initialize State]
         INIT --> LOOP{Step < Max Steps}
@@ -590,9 +590,9 @@ flowchart TD
     AGENTS --> FLOW[Create Planning Flow]
     FLOW --> INPUT[Get User Input]
     INPUT --> PLAN[Generate Plan]
-    
+
     PLAN --> EXECUTE[Execute Plan]
-    
+
     subgraph "Plan Execution Loop"
         EXECUTE --> NEXT{Next Step Available?}
         NEXT -->|Yes| ASSIGN[Assign to Agent]
@@ -602,7 +602,7 @@ flowchart TD
         UPDATE --> NEXT
         NEXT -->|No| COMPLETE[Plan Complete]
     end
-    
+
     COMPLETE --> RESULTS[Collect Results]
     RESULTS --> CLEANUP[Cleanup Resources]
     CLEANUP --> END([End])
@@ -618,17 +618,17 @@ flowchart TD
     CONNECT -->|Yes| HANDSHAKE[Perform Handshake]
     CONNECT -->|No| LISTEN
     HANDSHAKE --> READY[Server Ready]
-    
+
     READY --> WAIT[Wait for Requests]
     WAIT --> REQUEST{Request Received?}
     REQUEST -->|Yes| PROCESS[Process Request]
     REQUEST -->|No| WAIT
-    
+
     PROCESS --> ROUTE[Route to Handler]
     ROUTE --> EXECUTE[Execute Action]
     EXECUTE --> RESPOND[Send Response]
     RESPOND --> WAIT
-    
+
     WAIT --> SHUTDOWN{Shutdown Signal?}
     SHUTDOWN -->|No| WAIT
     SHUTDOWN -->|Yes| CLEANUP[Cleanup]
@@ -646,25 +646,25 @@ graph LR
         PARSER[Input Parser]
         VALIDATOR[Input Validator]
     end
-    
+
     subgraph "Agent Processing"
         MEMORY[Agent Memory]
         LLM_CALL[LLM Processing]
         DECISION[Decision Making]
     end
-    
+
     subgraph "Tool Execution"
         TOOL_SELECT[Tool Selection]
         TOOL_EXEC[Tool Execution]
         RESULT_PROC[Result Processing]
     end
-    
+
     subgraph "Output Generation"
         RESPONSE[Response Generation]
         FORMATTER[Output Formatter]
         USER_OUTPUT[User Output]
     end
-    
+
     USER_INPUT --> PARSER
     PARSER --> VALIDATOR
     VALIDATOR --> MEMORY
@@ -688,22 +688,22 @@ graph TB
         SHORT[Short-term Memory]
         LONG[Long-term Memory]
     end
-    
+
     subgraph "Context Processing"
         CONTEXT[Context Buffer]
         COMPRESS[Context Compression]
         RELEVANCE[Relevance Filtering]
     end
-    
+
     INPUT[New Information] --> WORKING
     WORKING --> SHORT
     SHORT --> LONG
-    
+
     WORKING --> CONTEXT
     SHORT --> CONTEXT
     LONG --> RELEVANCE
     RELEVANCE --> CONTEXT
-    
+
     CONTEXT --> COMPRESS
     COMPRESS --> LLM[LLM Context Window]
     LLM --> OUTPUT[Agent Response]
@@ -720,29 +720,29 @@ graph TB
         CONFIG[Configuration]
         HOST_FS[Host Filesystem]
     end
-    
+
     subgraph "Sandbox Container"
         SANDBOX[Sandbox Environment]
         WORK_DIR[Working Directory]
         PYTHON[Python Runtime]
         TOOLS[Sandboxed Tools]
     end
-    
+
     subgraph "Security Boundaries"
         NETWORK[Network Controls]
         RESOURCE[Resource Limits]
         FILE_ACCESS[File Access Controls]
     end
-    
+
     AGENT --> SANDBOX
     CONFIG --> RESOURCE
     CONFIG --> NETWORK
     CONFIG --> FILE_ACCESS
-    
+
     SANDBOX --> WORK_DIR
     SANDBOX --> PYTHON
     SANDBOX --> TOOLS
-    
+
     WORK_DIR -.-> HOST_FS
     PYTHON --> NETWORK
     TOOLS --> RESOURCE

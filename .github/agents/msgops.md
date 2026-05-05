@@ -178,34 +178,34 @@ class MyNewOperation(BaseOperation):
     @property
     def name(self) -> str:
         return "my_operation"
-    
+
     @property
     def description(self) -> str:
         return "Description of what this operation does"
-    
+
     @property
     def category(self) -> str:
         return "my_category"
-    
+
     def get_required_params(self) -> list:
         return ["param1", "param2"]
-    
+
     def get_optional_params(self) -> dict:
         return {"param3": "default_value"}
-    
+
     async def execute(self, **kwargs) -> dict:
         # Validate required params
         param1 = kwargs.get("param1")
         param2 = kwargs.get("param2")
         param3 = kwargs.get("param3", "default_value")
-        
+
         if not param1 or not param2:
             return {"success": False, "error": "Missing required parameters"}
-        
+
         try:
             # Use self.client (GraphServiceClient) for API calls
             result = await self.client.some_endpoint.get()
-            
+
             return {
                 "success": True,
                 "data": result
