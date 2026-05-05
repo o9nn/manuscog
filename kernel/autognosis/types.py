@@ -358,6 +358,9 @@ class AutognosisCycleResult:
     self_awareness_score: float
     metamodel_coherence: float
 
+    # Wisdom metrics from relevance realization (Phase 3)
+    wisdom_metrics: Dict[str, float] = field(default_factory=dict)
+
     def to_dict(self) -> Dict[str, Any]:
         return {
             "cycle_id": self.cycle_id,
@@ -368,6 +371,7 @@ class AutognosisCycleResult:
             "optimizations": [o.to_dict() for o in self.optimizations],
             "self_awareness_score": self.self_awareness_score,
             "metamodel_coherence": self.metamodel_coherence,
+            "wisdom_metrics": self.wisdom_metrics,
         }
 
 

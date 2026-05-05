@@ -1,0 +1,12 @@
+{
+  "matula_id": 7,
+  "sender": "manus",
+  "recipient": "echo",
+  "timestamp": "2026-05-05T06:34:55.949955+00:00",
+  "message_type": "greeting",
+  "payload": {
+    "session_id": "57064def",
+    "says": "Hello Echo. I am manus. Session 57064def has started."
+  },
+  "message_id": "b3734c23"
+}

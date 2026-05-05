@@ -10,10 +10,16 @@ import asyncio
 
 from app.logger import logger
 from app.opencog.cognitive_agent import CognitiveAgent
+from kernel.awakening import AwakeningContext, awaken, save_session_snapshot
 
 
 async def main():
     """Main function to run the Cognitive Agent."""
+    # ------------------------------------------------------------------ #
+    # Stage-0 awakening — before any LLM or tool call                     #
+    # ------------------------------------------------------------------ #
+    ctx: AwakeningContext = awaken()
+
     parser = argparse.ArgumentParser(description="Run OpenCog Cognitive Agent")
     parser.add_argument(
         "--prompt", type=str, required=False, help="Input prompt for the agent"
@@ -94,6 +100,9 @@ async def main():
         logger.error(f"Error running Cognitive Agent: {e}")
     finally:
         await agent.cleanup()
+        save_session_snapshot(
+            ctx, summary=f"Completed cognitive agent session {ctx.session_id}"
+        )
 
 
 async def run_demonstration(agent):
