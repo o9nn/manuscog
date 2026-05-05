@@ -876,7 +876,7 @@ This roadmap provides a comprehensive development plan for Layla based on the ca
 
 ---
 
-**Document Version**: 1.0  
-**Last Updated**: November 2024  
-**Source**: AndroidManifest.xml analysis  
+**Document Version**: 1.0
+**Last Updated**: November 2024
+**Source**: AndroidManifest.xml analysis
 **Maintainer**: Layla Development Team

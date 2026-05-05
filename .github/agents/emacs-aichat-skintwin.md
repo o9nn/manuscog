@@ -248,7 +248,7 @@ Seamless Org-mode integration enables:
   (skintwin-add-symptom patient "erythematous_plaques")
   (skintwin-add-symptom patient "silver_scales")
   (skintwin-add-symptom patient "itching")
-  
+
   ;; Perform analysis
   (skintwin-analyze-patient patient))
 ;; Returns: Diagnostic hypotheses with confidence
@@ -260,7 +260,7 @@ Seamless Org-mode integration enables:
 ### Example 3: Predict Disease Progression
 ```elisp
 ;; Predict progression with treatment
-(skintwin-predict-progression 
+(skintwin-predict-progression
  :condition "psoriasis"
  :treatment "methotrexate"
  :duration 12  ; weeks
@@ -302,8 +302,8 @@ treated_with(metronidazole)
 ;; Creates atoms:
 ;; (ConceptNode "rosacea")
 ;; (InheritanceLink (ConceptNode "rosacea") (ConceptNode "skin_conditions"))
-;; (EvaluationLink (PredicateNode "has_symptom") 
-;;                 (ListLink (ConceptNode "rosacea") 
+;; (EvaluationLink (PredicateNode "has_symptom")
+;;                 (ListLink (ConceptNode "rosacea")
 ;;                          (ConceptNode "facial_redness")))
 ;; ... with STI/LTI attention values from properties
 ```
@@ -422,12 +422,12 @@ Through Org-mode integration, the knowledge base becomes **literate**:
 ```elisp
 ;; MOSES discovers optimal treatment combinations
 (defun skintwin-evolve-treatment (condition patient-data)
-  (let ((fitness-fn 
+  (let ((fitness-fn
          (lambda (treatment-combo)
-           (skintwin-evaluate-outcome condition 
-                                     treatment-combo 
+           (skintwin-evaluate-outcome condition
+                                     treatment-combo
                                      patient-data))))
-    (aichat-moses-evolve 
+    (aichat-moses-evolve
      :fitness fitness-fn
      :generations 100
      :population 50)))

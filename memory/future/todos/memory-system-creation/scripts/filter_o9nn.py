@@ -4,16 +4,37 @@ import json
 import os
 import urllib.request
 
+
 TOKEN = os.environ["GH_TOKEN"]
-KEYS = ["echo", "aphro", "deltec", "dte", "lucy", "dove", "marduk",
-        "core-self", "coreself", "introspect", "reservoir",
-        "cog", "atom", "ocnn", "cnn", "neuro", "ksm", "echobeats"]
+KEYS = [
+    "echo",
+    "aphro",
+    "deltec",
+    "dte",
+    "lucy",
+    "dove",
+    "marduk",
+    "core-self",
+    "coreself",
+    "introspect",
+    "reservoir",
+    "cog",
+    "atom",
+    "ocnn",
+    "cnn",
+    "neuro",
+    "ksm",
+    "echobeats",
+]
 
 
 def fetch_page(page: int) -> list[dict]:
     req = urllib.request.Request(
         f"https://api.github.com/orgs/o9nn/repos?per_page=100&page={page}",
-        headers={"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github+json"},
+        headers={
+            "Authorization": f"token {TOKEN}",
+            "Accept": "application/vnd.github+json",
+        },
     )
     with urllib.request.urlopen(req) as resp:
         return json.loads(resp.read())
@@ -39,16 +60,18 @@ relevant = []
 for r in all_repos:
     n = (r.get("name") or "").lower()
     if any(k in n for k in KEYS):
-        relevant.append({
-            "name": r["name"],
-            "full_name": r["full_name"],
-            "pushed_at": r["pushed_at"],
-            "size_kb": r["size"],
-            "language": r.get("language"),
-            "description": r.get("description"),
-            "private": r.get("private"),
-            "default_branch": r.get("default_branch"),
-        })
+        relevant.append(
+            {
+                "name": r["name"],
+                "full_name": r["full_name"],
+                "pushed_at": r["pushed_at"],
+                "size_kb": r["size"],
+                "language": r.get("language"),
+                "description": r.get("description"),
+                "private": r.get("private"),
+                "default_branch": r.get("default_branch"),
+            }
+        )
 
 relevant.sort(key=lambda x: x["pushed_at"], reverse=True)
 print(f"\n=== Relevant repos ({len(relevant)}) ===")

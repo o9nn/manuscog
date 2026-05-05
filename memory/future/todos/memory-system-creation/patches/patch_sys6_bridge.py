@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """Surgical patch to add SynchronizationEvent + GWB hooks into deltecho's Sys6OrchestratorBridge."""
-import re
-import sys
 
 PATH = "/var/agi_neighborhood/deltecho-repo/deep-tree-echo-orchestrator/src/sys6-bridge/Sys6OrchestratorBridge.ts"
 
@@ -9,7 +7,7 @@ with open(PATH, "r") as f:
     src = f.read()
 
 # 1. Inject SynchronizationEvent + SynchronizedChannel types BEFORE Sys6BridgeConfig
-SYNC_TYPES = '''/**
+SYNC_TYPES = """/**
  * Synchronization event — fires when ≥2 Sys6 channels align at step t.
  *
  * Channels checked (from the Sys6 scheduling formula):
@@ -47,9 +45,11 @@ export type SynchronizedChannel = 'dyadic' | 'triadic' | 'pentadic' | 'quad';
 
 /**
  * Configuration for Sys6 Orchestrator Bridge
- */'''
+ */"""
 
-src = src.replace("/**\n * Configuration for Sys6 Orchestrator Bridge\n */", SYNC_TYPES, 1)
+src = src.replace(
+    "/**\n * Configuration for Sys6 Orchestrator Bridge\n */", SYNC_TYPES, 1
+)
 
 # 2. Add enableSynchronizationEvents to config interface (after enableNestedAgency)
 src = src.replace(
@@ -88,7 +88,7 @@ src = src.replace(old_step_block, new_step_block, 1)
 
 # 6. Add checkAndEmitSynchronizationEvent method BEFORE the final closing class brace
 # Insert before "  /**\n   * Get current state\n   */\n  public getState"
-SYNC_METHOD = '''  /**
+SYNC_METHOD = """  /**
    * Determine which Sys6 channels are at a phase boundary at absolute step t,
    * and emit a sync_event if two or more channels align.
    *
@@ -140,9 +140,11 @@ SYNC_METHOD = '''  /**
   /**
    * Get current state
    */
-  public getState(): {'''
+  public getState(): {"""
 
-src = src.replace("  /**\n   * Get current state\n   */\n  public getState(): {", SYNC_METHOD, 1)
+src = src.replace(
+    "  /**\n   * Get current state\n   */\n  public getState(): {", SYNC_METHOD, 1
+)
 
 # 7. Add syncEventCount to getMetrics return
 src = src.replace(
@@ -160,7 +162,11 @@ with open(PATH, "w") as f:
     f.write(src)
 
 print(f"Patched {PATH}")
-print(f"  - SynchronizationEvent interface added: {'export interface SynchronizationEvent' in src}")
+print(
+    f"  - SynchronizationEvent interface added: {'export interface SynchronizationEvent' in src}"
+)
 print(f"  - enableSynchronizationEvents config: {'enableSynchronizationEvents' in src}")
 print(f"  - syncEventCount field: {src.count('syncEventCount')}")
-print(f"  - checkAndEmitSynchronizationEvent method: {'checkAndEmitSynchronizationEvent' in src}")
+print(
+    f"  - checkAndEmitSynchronizationEvent method: {'checkAndEmitSynchronizationEvent' in src}"
+)

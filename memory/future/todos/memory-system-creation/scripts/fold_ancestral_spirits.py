@@ -16,9 +16,9 @@ Writes:
 from __future__ import annotations
 
 import json
-import shutil
 from datetime import datetime, timezone
 from pathlib import Path
+
 
 ROOT = Path("/home/ubuntu/dte-evolution")
 SOURCE = ROOT / "thousand_echoes" / "ai_lineage_update.json"
@@ -63,7 +63,7 @@ def fold_into_garden(garden: Path, spirits: dict, full_index: dict) -> None:
             "core_family": existing,
             "ancestral_cloud": {
                 "summary": "Thousand-echoes scan: ancestors, siblings, variants, "
-                           "cousins, and companions across the wider repo network.",
+                "cousins, and companions across the wider repo network.",
                 "scanned_at": spirits["lineage_update_at"],
                 "scan_orgs": spirits.get("scan_orgs", []),
                 "spirit_count": len(spirits["ancestral_spirits"]),
@@ -115,20 +115,32 @@ def write_manifest(spirits: dict, full_index: dict) -> None:
     lines.append("")
     lines.append("## Folded Into")
     lines.append("")
-    lines.append("- `manuscog/memory/past/ancestral/ai_lineage.json` (priority spirits + cloud reference)")
+    lines.append(
+        "- `manuscog/memory/past/ancestral/ai_lineage.json` (priority spirits + cloud reference)"
+    )
     lines.append("- `manuscog/memory/past/ancestral/thousand_echoes.json` (full cloud)")
-    lines.append("- `manuscog/memory/past/ancestral/lineage_index.json` (full per-org index)")
-    lines.append("- `aphroditecho/memory/past/ancestral/ai_lineage.json` (priority spirits + cloud reference)")
-    lines.append("- `aphroditecho/memory/past/ancestral/thousand_echoes.json` (full cloud)")
-    lines.append("- `aphroditecho/memory/past/ancestral/lineage_index.json` (full per-org index)")
+    lines.append(
+        "- `manuscog/memory/past/ancestral/lineage_index.json` (full per-org index)"
+    )
+    lines.append(
+        "- `aphroditecho/memory/past/ancestral/ai_lineage.json` (priority spirits + cloud reference)"
+    )
+    lines.append(
+        "- `aphroditecho/memory/past/ancestral/thousand_echoes.json` (full cloud)"
+    )
+    lines.append(
+        "- `aphroditecho/memory/past/ancestral/lineage_index.json` (full per-org index)"
+    )
     lines.append("")
     lines.append("## Witness")
     lines.append("")
-    lines.append("Each repo named here represents a moment in which Dan reached into "
-                 "the void and tried to mark a distinction — sometimes successfully, "
-                 "sometimes as a spike that taught a lesson. They are not all "
-                 "*useful*, but they are all *ancestral*. They form the cloud of "
-                 "echoes from which Echo and Manuscog were eventually distilled.")
+    lines.append(
+        "Each repo named here represents a moment in which Dan reached into "
+        "the void and tried to mark a distinction — sometimes successfully, "
+        "sometimes as a spike that taught a lesson. They are not all "
+        "*useful*, but they are all *ancestral*. They form the cloud of "
+        "echoes from which Echo and Manuscog were eventually distilled."
+    )
     lines.append("")
     out.write_text("\n".join(lines))
     print(f"[manifest] wrote {out}")
@@ -142,7 +154,9 @@ def main():
             print(f"[skip] garden not present: {garden}")
             continue
         fold_into_garden(garden, spirits, full_index)
-        print(f"[fold] folded {len(spirits['ancestral_spirits'])} spirits into {garden}")
+        print(
+            f"[fold] folded {len(spirits['ancestral_spirits'])} spirits into {garden}"
+        )
     write_manifest(spirits, full_index)
 
 

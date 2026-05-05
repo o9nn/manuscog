@@ -21,20 +21,20 @@ graph TB
         RE[Reasoning Engine]
         PM[Pattern Matcher]
     end
-    
+
     subgraph "OpenCog Tools"
         AST[AtomSpace Tool]
         RT[Reasoning Tool]
         PMT[Pattern Match Tool]
         KQT[Knowledge Query Tool]
     end
-    
+
     subgraph "OpenManus Framework"
         TC[ToolCall Agent]
         TCol[Tool Collection]
         LLM[LLM Integration]
     end
-    
+
     CA --> AS
     CA --> RE
     CA --> PM
@@ -45,7 +45,7 @@ graph TB
     CA --> TC
     TC --> TCol
     TC --> LLM
-    
+
     AS --> RE
     AS --> PM
 ```
@@ -221,20 +221,20 @@ from app.opencog.cognitive_agent import CognitiveAgent
 
 async def main():
     agent = CognitiveAgent()
-    
+
     # Build knowledge about AI
     agent.add_knowledge("concept", "Artificial Intelligence")
     agent.add_knowledge("concept", "Machine Learning")
     agent.add_knowledge("concept", "Deep Learning")
-    
+
     # Add relationships
     agent.add_knowledge("relation", "Machine Learning", object_="Artificial Intelligence")
     agent.add_knowledge("relation", "Deep Learning", object_="Machine Learning")
-    
+
     # Add facts
     agent.add_knowledge("fact", "Machine Learning", "learns_from", "data")
     agent.add_knowledge("fact", "Deep Learning", "uses", "neural_networks")
-    
+
     # Query the knowledge
     results = agent.query_knowledge("machine learning")
     print(f"Found {len(results)} related items")
@@ -250,7 +250,7 @@ from app.opencog.cognitive_agent import CognitiveAgent
 
 async def main():
     agent = CognitiveAgent()
-    
+
     # The agent will use OpenCog tools to answer
     await agent.run("Build a knowledge base about programming languages and explain the relationships between Python, object-oriented programming, and machine learning")
 
@@ -363,7 +363,7 @@ python -m pytest tests/opencog/
 Potential areas for expansion:
 
 1. **PLN Integration**: Full Probabilistic Logic Networks implementation
-2. **MOSES Integration**: Program learning and evolutionary optimization  
+2. **MOSES Integration**: Program learning and evolutionary optimization
 3. **Attention Allocation**: Economic attention allocation mechanisms
 4. **Distributed AtomSpace**: Multi-node knowledge sharing
 5. **Visualization**: Graph visualization of knowledge structures

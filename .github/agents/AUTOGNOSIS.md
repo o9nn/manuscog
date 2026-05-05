@@ -14,7 +14,7 @@ ORRRG's Autognosis system implements **hierarchical self-image building** - a br
 Autognosis (from Greek: "self-knowing") is the system's ability to:
 
 1. **Monitor its own states and behaviors** in real-time
-2. **Build hierarchical models** of its own cognitive processes  
+2. **Build hierarchical models** of its own cognitive processes
 3. **Generate meta-cognitive insights** about its own functioning
 4. **Adaptively optimize** based on self-understanding
 5. **Maintain recursive self-awareness** at multiple cognitive levels
@@ -29,7 +29,7 @@ The autognosis system operates through four interconnected layers:
 - **Anomaly identification** through statistical analysis
 - **Behavioral trend analysis** over time
 
-### 2. Self-Modeling Layer  
+### 2. Self-Modeling Layer
 - **Hierarchical self-image construction** at multiple cognitive levels
 - **Recursive modeling** where higher levels model lower levels
 - **Confidence scoring** for self-understanding accuracy
@@ -100,7 +100,7 @@ self_image = await modeler.build_self_image(level, monitor, soc)
 
 # Each self-image contains:
 # - Component states and behavioral patterns
-# - Performance metrics and cognitive processes  
+# - Performance metrics and cognitive processes
 # - Meta-reflections and confidence scores
 ```
 
@@ -187,7 +187,7 @@ Recent Meta-Cognitive Insights:
 
 Self-Awareness Assessment:
   pattern_recognition       ███████████████ 0.750
-  performance_awareness     █████████████████ 0.850  
+  performance_awareness     █████████████████ 0.850
   meta_reflection_depth     ████████████ 0.600
   cognitive_complexity      ██████████████ 0.700
 
@@ -198,7 +198,7 @@ Overall Self-Awareness Score: 0.725 (Moderately Self-Aware)
 
 ### For System Operations
 - **Proactive problem detection** through self-monitoring
-- **Adaptive optimization** based on self-understanding  
+- **Adaptive optimization** based on self-understanding
 - **Improved reliability** through self-awareness
 - **Autonomous improvement** without external intervention
 
@@ -222,7 +222,7 @@ The system can model its own modeling processes, creating recursive loops of sel
 ### Meta-Cognitive Insights
 Beyond simple metrics, the system generates qualitative insights about its own cognitive processes, behavioral patterns, and optimization opportunities.
 
-### Adaptive Confidence Scoring  
+### Adaptive Confidence Scoring
 Self-images include confidence scores that reflect the system's certainty about its own self-understanding, enabling appropriate skepticism about its own models.
 
 ### Optimization Discovery

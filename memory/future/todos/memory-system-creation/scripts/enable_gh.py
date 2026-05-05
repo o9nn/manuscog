@@ -2,6 +2,7 @@
 """Enable the git pat beast connector and GitHub connector for this session."""
 import json
 
+
 PATH = "/home/ubuntu/.manus/config/config.json"
 with open(PATH) as f:
     cfg = json.load(f)

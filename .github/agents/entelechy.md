@@ -46,14 +46,14 @@ interface OntologicalDimension {
     cogutil: ComponentState;           // Core utilities
     health: number;                    // 0.0-1.0 foundation integrity
   };
-  
+
   core: {
     atomspace: ComponentState;         // Knowledge representation
     cogserver: ComponentState;         // Distributed cognition
     storage: ComponentState[];         // Persistence backends
     health: number;                    // Core layer integrity
   };
-  
+
   specialized: {
     logic: ComponentState[];           // Reasoning systems
     cognitive: ComponentState[];       // Attention & spacetime
@@ -62,7 +62,7 @@ interface OntologicalDimension {
     language: ComponentState[];        // NLP processing
     health: number;                    // Specialized layer health
   };
-  
+
   architecturalCompleteness: number;   // Overall structural integrity
 }
 ```
@@ -86,13 +86,13 @@ interface TeleologicalDimension {
     phase4: PhaseProgress;             // Advanced & Learning
     phase5: PhaseProgress;             // Language & Integration
   };
-  
+
   roadmapAlignment: {
     exists: boolean;
     documented: boolean;
     alignmentScore: number;            // 0.0-1.0
   };
-  
+
   actualizationTrajectory: number;     // 0.0-1.0 progress toward goals
   purposeClarity: number;              // 0.0-1.0 goal definition clarity
 }
@@ -116,19 +116,19 @@ interface CognitiveDimension {
     health: number;
     fragmentationMarkers: number;       // TODO/FIXME count
   };
-  
+
   patternSystems: {
     unify: CognitiveState;             // Pattern matching
     miner: CognitiveState;             // Pattern mining
     health: number;
   };
-  
+
   attentionSystems: {
     attention: CognitiveState;         // ECAN
     spacetime: CognitiveState;         // Temporal reasoning
     health: number;
   };
-  
+
   learningSystems: {
     moses: CognitiveState;             // Evolutionary search
     asmoses: CognitiveState;           // AtomSpace MOSES
@@ -136,7 +136,7 @@ interface CognitiveDimension {
     languageLearning: CognitiveState;  // Language acquisition
     health: number;
   };
-  
+
   cognitiveCompleteness: number;       // 0.0-1.0 overall capability
 }
 ```
@@ -158,19 +158,19 @@ interface IntegrativeDimension {
     satisfiedDependencies: number;
     health: number;                    // Satisfaction ratio
   };
-  
+
   buildIntegration: {
     cmakeExists: boolean;
     subdirectoriesAdded: number;
     health: number;                    // Build system health
   };
-  
+
   testIntegration: {
     testDirectories: number;
     testFiles: number;
     coverageHealth: number;            // Test coverage quality
   };
-  
+
   integrationHealth: number;           // 0.0-1.0 overall integration
 }
 ```
@@ -194,13 +194,13 @@ interface EvolutionaryDimension {
     totalMarkers: number;
     health: number;                    // Implementation completeness
   };
-  
+
   implementationDepth: {
     totalImplementationFiles: number;
     smallStubFiles: number;            // Files < threshold size
     health: number;                    // Implementation substance
   };
-  
+
   selfImprovementCapacity: {
     metaToolsPresent: number;
     metaToolsTotal: number;
@@ -208,7 +208,7 @@ interface EvolutionaryDimension {
     hasOntogenesis: boolean;           // Self-generation system
     health: number;                    // Meta-cognitive capability
   };
-  
+
   evolutionaryPotential: number;       // 0.0-1.0 growth capacity
 }
 ```
@@ -228,7 +228,7 @@ interface EntelechyGenome {
   id: string;                          // Unique system identifier
   generation: number;                  // Developmental generation
   lineage: string[];                   // Evolutionary ancestry
-  
+
   genes: {
     ontological: number[];             // Structural genes
     teleological: number[];            // Purpose genes
@@ -236,7 +236,7 @@ interface EntelechyGenome {
     integrative: number[];             // Coherence genes
     evolutionary: number[];            // Growth genes
   };
-  
+
   fitness: number;                     // Overall actualization score
   age: number;                         // System maturity
   actualizationLevel: number;          // Degree of potential realized
@@ -255,22 +255,22 @@ interface EntelechyMetrics {
   coherence: number;                   // Holistic integration
   vitality: number;                    // Self-organizing capacity
   alignment: number;                   // Teleological alignment
-  
+
   // Component Metrics
   totalComponents: number;
   integratedComponents: number;
   fragmentedComponents: number;
-  
+
   // Code Health Metrics
   totalCodeMarkers: number;            // TODO/FIXME/STUB count
   todoCount: number;
   fixmeCount: number;
   stubCount: number;
-  
+
   // Cognitive Architecture Metrics
   cognitiveLayersComplete: number;
   cognitiveLayersTotal: number;
-  
+
   // Integration Metrics
   dependencySatisfaction: number;      // 0.0-1.0
   cmakeIntegrationHealth: number;      // 0.0-1.0
@@ -283,7 +283,7 @@ interface EntelechyMetrics {
 Entelechy fitness is a weighted combination of dimensional scores:
 
 ```typescript
-fitness = 
+fitness =
   ontologicalHealth * 0.2 +            // Structural foundation
   teleologicalAlignment * 0.25 +       // Purpose clarity & progress
   cognitiveCompleteness * 0.25 +       // Reasoning capability
@@ -421,17 +421,17 @@ def optimize_entelechy(system, iterations: int):
     for i in range(iterations):
         # Assess current state
         metrics = system.assess_entelechy()
-        
+
         # Identify weakest dimension
         weakest = min(metrics.dimensions, key=lambda d: d.health)
-        
+
         # Apply targeted improvements
         improvements = system.generate_improvements(weakest)
         system.apply_improvements(improvements)
-        
+
         # Validate progress
         new_metrics = system.assess_entelechy()
-        
+
         # Record evolutionary trajectory
         system.evolution_history.append({
             'iteration': i,
@@ -490,27 +490,27 @@ report = introspector.perform_deep_introspection()
 for dimension_name, insights in report['dimensional_insights'].items():
     print(f"\n🔍 {dimension_name.upper()} Dimension")
     print("-" * 50)
-    
+
     if dimension_name == 'ontological':
         comp = insights['architectural_completeness']
         print(f"Architectural Completeness: {comp:.1%}")
         print(f"Foundation Health: {insights['foundation_layer']['health']:.1%}")
         print(f"Core Health: {insights['core_layer']['health']:.1%}")
-    
+
     elif dimension_name == 'teleological':
         traj = insights['actualization_trajectory']
         print(f"Actualization Trajectory: {traj:.1%}")
         for phase, details in insights['development_phases'].items():
             print(f"  {details['name']}: {details['completion']:.1%}")
-    
+
     elif dimension_name == 'cognitive':
         comp = insights['cognitive_completeness']
         print(f"Cognitive Completeness: {comp:.1%}")
-    
+
     elif dimension_name == 'integrative':
         health = insights['integration_health']
         print(f"Integration Health: {health:.1%}")
-    
+
     elif dimension_name == 'evolutionary':
         pot = insights['evolutionary_potential']
         print(f"Evolutionary Potential: {pot:.1%}")
@@ -525,7 +525,7 @@ for dimension_name, insights in report['dimensional_insights'].items():
 Generate and execute fragmentation repair plan
 """
 from entelechy_introspector import (
-    EntelechyIntrospector, 
+    EntelechyIntrospector,
     FragmentationType,
     FragmentationSignature
 )
@@ -580,39 +580,39 @@ class EntelechyTracker:
     def __init__(self, repo_path: str):
         self.repo_path = repo_path
         self.history = []
-    
+
     def snapshot(self):
         """Take entelechy snapshot"""
         introspector = EntelechyIntrospector(self.repo_path)
         report = introspector.perform_deep_introspection()
-        
+
         snapshot = {
             'timestamp': datetime.utcnow().isoformat() + 'Z',
             'metrics': report['entelechy_assessment'],
             'fragmentations': report['fragmentation_analysis']['total_fragments']
         }
-        
+
         self.history.append(snapshot)
         return snapshot
-    
+
     def analyze_trajectory(self):
         """Analyze evolutionary trajectory"""
         if len(self.history) < 2:
             return "Insufficient history"
-        
+
         first = self.history[0]
         last = self.history[-1]
-        
+
         actualization_gain = (
-            last['metrics']['actualization_score'] - 
+            last['metrics']['actualization_score'] -
             first['metrics']['actualization_score']
         )
-        
+
         fragmentation_reduction = (
-            first['fragmentations'] - 
+            first['fragmentations'] -
             last['fragmentations']
         )
-        
+
         return {
             'actualization_gain': actualization_gain,
             'fragmentation_reduction': fragmentation_reduction,
@@ -626,7 +626,7 @@ tracker = EntelechyTracker("/path/to/opencog-unified")
 for week in range(20):
     snapshot = tracker.snapshot()
     print(f"Week {week}: Actualization = {snapshot['metrics']['actualization_score']:.1%}")
-    
+
     # Perform improvements between snapshots
     # ... (development work happens here)
 
@@ -754,21 +754,21 @@ class MultiLevelEntelechy:
         self.component_entelechy = {}    # Individual component level
         self.layer_entelechy = {}        # Architectural layer level
         self.system_entelechy = None     # Whole system level
-    
+
     def assess_multi_level(self):
         """Assess entelechy at all scales"""
         # Component level
         for component in self.components:
             self.component_entelechy[component.name] = assess_component(component)
-        
+
         # Layer level
         for layer in self.layers:
             components = [c for c in self.components if c.layer == layer]
             self.layer_entelechy[layer] = aggregate_entelechy(components)
-        
+
         # System level
         self.system_entelechy = aggregate_entelechy(self.layers)
-        
+
         return {
             'component': self.component_entelechy,
             'layer': self.layer_entelechy,
@@ -792,12 +792,12 @@ def detect_resonance(metrics: EntelechyMetrics) -> dict:
         metrics.vitality,
         metrics.alignment
     ]
-    
+
     # Resonance when all dimensions > threshold and variance is low
     threshold = 0.7
     above_threshold = all(d > threshold for d in dimensions)
     variance = np.var(dimensions)
-    
+
     return {
         'resonating': above_threshold and variance < 0.01,
         'mean_level': np.mean(dimensions),
@@ -818,16 +818,16 @@ class SelfTranscendence:
     def __init__(self, system):
         self.system = system
         self.transcendence_threshold = 0.8
-    
+
     def can_transcend(self) -> bool:
         """Check if system is ready for transcendence"""
         metrics = self.system.assess_entelechy()
         return metrics.actualization > self.transcendence_threshold
-    
+
     def transcend(self):
         """
         Initiate self-transcendence cycle
-        
+
         This involves:
         1. Identifying novel capabilities beyond current design
         2. Restructuring architecture to accommodate emergence
@@ -836,16 +836,16 @@ class SelfTranscendence:
         """
         if not self.can_transcend():
             raise ValueError("System not ready for transcendence")
-        
+
         # Enable meta-cognitive capabilities
         self.system.activate_autognosis()
-        
+
         # Enable self-generation
         self.system.activate_ontogenesis()
-        
+
         # Enable emergent goal discovery
         self.system.activate_emergent_teleology()
-        
+
         return {
             'status': 'transcendence_initiated',
             'new_capabilities': self.discover_emergent_capabilities(),

@@ -16,12 +16,12 @@ async def main():
         enable_auto_reasoning=True,
         knowledge_persistence=True
     )
-    
+
     # Add some knowledge
     agent.add_knowledge("concept", "Artificial Intelligence")
     agent.add_knowledge("concept", "Machine Learning")
     agent.add_knowledge("relation", "Machine Learning", object_="Artificial Intelligence")
-    
+
     # Query and reason
     results = agent.query_knowledge("AI")
     await agent.run("Explain the relationship between AI and Machine Learning")
@@ -38,7 +38,7 @@ python run_cognitive_agent.py --demo
 # Run with specific prompt
 python run_cognitive_agent.py --prompt "Build knowledge about space exploration"
 
-# Persist knowledge between runs  
+# Persist knowledge between runs
 python run_cognitive_agent.py --persist-knowledge --prompt "Continue learning about AI"
 
 # Load/save knowledge
@@ -58,7 +58,7 @@ from app.opencog.atomspace import AtomSpaceManager
 
 atomspace = AtomSpaceManager()
 ai_id = atomspace.add_concept("AI", truth_value={"strength": 0.9, "confidence": 0.8})
-ml_id = atomspace.add_concept("Machine Learning") 
+ml_id = atomspace.add_concept("Machine Learning")
 relation_id = atomspace.add_inheritance("Machine Learning", "AI")
 ```
 
@@ -112,7 +112,7 @@ The cognitive agent exposes OpenCog functionality through tools:
 Operations:
 - `add_concept`: Add concepts to knowledge base
 - `add_relation`: Add inheritance relationships
-- `add_fact`: Add factual statements  
+- `add_fact`: Add factual statements
 - `query`: Search knowledge base
 - `list_atoms`: Browse atoms by type
 - `export`/`import`: Save/load knowledge
@@ -139,7 +139,7 @@ Operations:
 Operations:
 - `query`: High-level knowledge analysis
 - `summarize`: Generate knowledge summaries
-- `insights`: Extract knowledge insights  
+- `insights`: Extract knowledge insights
 - `validate`: Check knowledge consistency
 
 ## Configuration Examples
@@ -190,7 +190,7 @@ for concept in insights['concept_rankings'][:5]:
 
 ```python
 # Add knowledge with uncertainty
-agent.add_knowledge("concept", "Uncertain Concept", 
+agent.add_knowledge("concept", "Uncertain Concept",
                    truth_value={"strength": 0.7, "confidence": 0.5})
 
 # Reasoning propagates uncertainty

@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Surgical patch with count-validated single-application of SynchronizationEvent."""
 PATH = "/var/agi_neighborhood/deltecho-repo/deep-tree-echo-orchestrator/src/sys6-bridge/Sys6OrchestratorBridge.ts"
-with open(PATH) as f: s = f.read()
+with open(PATH) as f:
+    s = f.read()
 
 if "SynchronizationEvent" in s:
     print("Already patched, skipping.")
     raise SystemExit(0)
 
-SYNC_BLOCK = '''/**
+SYNC_BLOCK = """/**
  * Synchronization event — fires when ≥2 Sys6 channels align at step t.
  *
  * Channels checked (from the Sys6 scheduling formula):
@@ -43,7 +44,7 @@ export interface SynchronizationEvent {
  */
 export type SynchronizedChannel = 'dyadic' | 'triadic' | 'pentadic' | 'quad';
 
-'''
+"""
 
 # 1. Insert types BEFORE the existing "Configuration for Sys6 Orchestrator Bridge" comment block.
 target_marker = "/**\n * Configuration for Sys6 Orchestrator Bridge\n */"
@@ -53,17 +54,27 @@ s = s.replace(target_marker, SYNC_BLOCK + target_marker, 1)
 # 2. Add enableSynchronizationEvents to config interface
 old1 = "  enableNestedAgency: boolean;\n}"
 assert s.count(old1) == 1
-s = s.replace(old1, "  enableNestedAgency: boolean;\n  /** Emit sync_event when channels align (default: true) */\n  enableSynchronizationEvents: boolean;\n}", 1)
+s = s.replace(
+    old1,
+    "  enableNestedAgency: boolean;\n  /** Emit sync_event when channels align (default: true) */\n  enableSynchronizationEvents: boolean;\n}",
+    1,
+)
 
 # 3. Add to DEFAULT_CONFIG
 old2 = "  enableNestedAgency: true,\n};"
 assert s.count(old2) == 1
-s = s.replace(old2, "  enableNestedAgency: true,\n  enableSynchronizationEvents: true,\n};", 1)
+s = s.replace(
+    old2, "  enableNestedAgency: true,\n  enableSynchronizationEvents: true,\n};", 1
+)
 
 # 4. Add syncEventCount field after currentStep
 old3 = "  private currentStep = 0;"
 assert s.count(old3) == 1
-s = s.replace(old3, "  private currentStep = 0;\n  // Synchronization event counter (Global Workspace Theory heartbeats)\n  private syncEventCount = 0;", 1)
+s = s.replace(
+    old3,
+    "  private currentStep = 0;\n  // Synchronization event counter (Global Workspace Theory heartbeats)\n  private syncEventCount = 0;",
+    1,
+)
 
 # 5. Inject sync event check inside executeStep
 old4 = """  private async executeStep(): Promise<void> {
@@ -80,7 +91,7 @@ new4 = """  private async executeStep(): Promise<void> {
 s = s.replace(old4, new4, 1)
 
 # 6. Add checkAndEmitSynchronizationEvent method before "  /**\n   * Get current state\n   */"
-sync_method = '''  /**
+sync_method = """  /**
    * Determine which Sys6 channels are at a phase boundary at absolute step t,
    * and emit a sync_event if two or more channels align.
    *
@@ -129,7 +140,7 @@ sync_method = '''  /**
     this.emit('sync_event', event);
   }
 
-'''
+"""
 
 old5 = "  /**\n   * Get current state\n   */\n  public getState():"
 assert s.count(old5) == 1
@@ -138,7 +149,11 @@ s = s.replace(old5, sync_method + old5, 1)
 # 7. Add syncEventCount to getMetrics
 old6 = "    streamSaliences: [number, number, number];\n  }"
 assert s.count(old6) == 1
-s = s.replace(old6, "    streamSaliences: [number, number, number];\n    syncEventCount: number;\n  }", 1)
+s = s.replace(
+    old6,
+    "    streamSaliences: [number, number, number];\n    syncEventCount: number;\n  }",
+    1,
+)
 
 old7 = """      streamSaliences: [
         this.streams[0].salience,
@@ -149,7 +164,9 @@ old7 = """      streamSaliences: [
   }
 }"""
 assert s.count(old7) == 1
-s = s.replace(old7, """      streamSaliences: [
+s = s.replace(
+    old7,
+    """      streamSaliences: [
         this.streams[0].salience,
         this.streams[1].salience,
         this.streams[2].salience,
@@ -157,9 +174,12 @@ s = s.replace(old7, """      streamSaliences: [
       syncEventCount: this.syncEventCount,
     };
   }
-}""", 1)
+}""",
+    1,
+)
 
-with open(PATH, "w") as f: f.write(s)
+with open(PATH, "w") as f:
+    f.write(s)
 print("V2 patch applied successfully")
 print("  SynchronizedChannel exports:", s.count("export type SynchronizedChannel"))
 print("  SynchronizationEvent ifc:", s.count("export interface SynchronizationEvent"))

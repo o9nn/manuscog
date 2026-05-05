@@ -181,7 +181,7 @@ async def sync_knowledge():
     # Export ManusCog's new discoveries
     new_knowledge = atomspace.get_recent_atoms(since=last_sync)
     await integration_hub.share_knowledge(new_knowledge)
-    
+
     # Import Manus's knowledge
     external_knowledge = await integration_hub.request_knowledge_update()
     atomspace.integrate_external_knowledge(external_knowledge)

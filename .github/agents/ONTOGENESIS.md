@@ -153,7 +153,7 @@ coeff[i] += (random() - 0.5) * 0.2  // ±10% mutation
 Fitness is a weighted combination of multiple factors:
 
 ```typescript
-fitness = 
+fitness =
   grip * 0.4 +          // Quality of domain fit
   stability * 0.2 +     // Numerical stability
   efficiency * 0.2 +    // Computational efficiency
@@ -177,10 +177,10 @@ novelty = avg_distance(kernel, population)
 
 ### Example 1: Simple Self-Generation
 ```typescript
-import { 
-  UniversalKernelGenerator, 
-  initializeOntogeneticKernel, 
-  selfGenerate 
+import {
+  UniversalKernelGenerator,
+  initializeOntogeneticKernel,
+  selfGenerate
 } from 'cographiql-hypergraph';
 
 // Create parent kernel

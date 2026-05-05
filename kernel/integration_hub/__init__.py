@@ -14,7 +14,7 @@ Components:
 
 Usage:
     from kernel.integration_hub import ManusIntegrationHub, HubConfig
-    
+
     # Initialize hub
     config = HubConfig(
         primary_protocol=ProtocolType.MCP,
@@ -22,23 +22,23 @@ Usage:
         heartbeat_interval=30.0
     )
     hub = ManusIntegrationHub(config)
-    
+
     # Initialize with kernel
     await hub.initialize(kernel)
-    
+
     # Connect to Primary Manus
     await hub.connect()
-    
+
     # Start background tasks
     await hub.start()
-    
+
     # Request guidance
     guidance = await hub.request_guidance(
         topic="self_optimization",
         question="How can I improve my pattern recognition?",
         context=autognosis.get_current_state()
     )
-    
+
     # Propose evolution
     approval = await hub.propose_evolution(
         evolution_type="parameter_tuning",
@@ -49,101 +49,85 @@ Usage:
     )
 """
 
-from .types import (
-    # Enumerations
-    ProtocolType,
-    MessagePriority,
-    MessageDirection,
-    ConnectionState,
-    RequestType,
-    ResponseType,
-    ApprovalStatus,
-    
-    # Message types
-    MessageHeader,
-    IntegrationMessage,
-    
-    # Request types
-    GuidanceRequest,
-    AnalysisRequest,
-    EvolutionProposal,
-    KnowledgeQuery,
-    StatusReport,
-    
-    # Response types
-    GuidanceResponse,
-    AnalysisResult,
-    EvolutionApproval,
-    KnowledgeInjection,
-    TaskAssignment,
-    Command,
-    
-    # State types
-    ConnectionInfo,
-    SyncState,
-    PendingRequest,
-    CallbackResult
-)
-
+from .hub import HubConfig, ManusIntegrationHub
 from .protocol_adapter import (
-    ProtocolConfig,
     BaseProtocolAdapter,
+    FileProtocolAdapter,
     MCPProtocolAdapter,
+    ProtocolAdapterFactory,
+    ProtocolConfig,
     RESTProtocolAdapter,
     WebSocketProtocolAdapter,
-    FileProtocolAdapter,
-    ProtocolAdapterFactory
+)
+from .types import (  # Enumerations; Message types; Request types; Response types; State types
+    AnalysisRequest,
+    AnalysisResult,
+    ApprovalStatus,
+    CallbackResult,
+    Command,
+    ConnectionInfo,
+    ConnectionState,
+    EvolutionApproval,
+    EvolutionProposal,
+    GuidanceRequest,
+    GuidanceResponse,
+    IntegrationMessage,
+    KnowledgeInjection,
+    KnowledgeQuery,
+    MessageDirection,
+    MessageHeader,
+    MessagePriority,
+    PendingRequest,
+    ProtocolType,
+    RequestType,
+    ResponseType,
+    StatusReport,
+    SyncState,
+    TaskAssignment,
 )
 
-from .hub import ManusIntegrationHub, HubConfig
 
 __all__ = [
     # Main hub
-    'ManusIntegrationHub',
-    'HubConfig',
-    
+    "ManusIntegrationHub",
+    "HubConfig",
     # Protocol adapters
-    'ProtocolConfig',
-    'BaseProtocolAdapter',
-    'MCPProtocolAdapter',
-    'RESTProtocolAdapter',
-    'WebSocketProtocolAdapter',
-    'FileProtocolAdapter',
-    'ProtocolAdapterFactory',
-    
+    "ProtocolConfig",
+    "BaseProtocolAdapter",
+    "MCPProtocolAdapter",
+    "RESTProtocolAdapter",
+    "WebSocketProtocolAdapter",
+    "FileProtocolAdapter",
+    "ProtocolAdapterFactory",
     # Enumerations
-    'ProtocolType',
-    'MessagePriority',
-    'MessageDirection',
-    'ConnectionState',
-    'RequestType',
-    'ResponseType',
-    'ApprovalStatus',
-    
+    "ProtocolType",
+    "MessagePriority",
+    "MessageDirection",
+    "ConnectionState",
+    "RequestType",
+    "ResponseType",
+    "ApprovalStatus",
     # Message types
-    'MessageHeader',
-    'IntegrationMessage',
-    
+    "MessageHeader",
+    "IntegrationMessage",
     # Request types
-    'GuidanceRequest',
-    'AnalysisRequest',
-    'EvolutionProposal',
-    'KnowledgeQuery',
-    'StatusReport',
-    
+    "GuidanceRequest",
+    "AnalysisRequest",
+    "EvolutionProposal",
+    "KnowledgeQuery",
+    "StatusReport",
     # Response types
-    'GuidanceResponse',
-    'AnalysisResult',
-    'EvolutionApproval',
-    'KnowledgeInjection',
-    'TaskAssignment',
-    'Command',
-    
+    "GuidanceResponse",
+    "AnalysisResult",
+    "EvolutionApproval",
+    "KnowledgeInjection",
+    "TaskAssignment",
+    "Command",
     # State types
-    'ConnectionInfo',
-    'SyncState',
-    'PendingRequest',
-    'CallbackResult'
+    "ConnectionInfo",
+    "SyncState",
+    "PendingRequest",
+    "CallbackResult",
 ]
 
-__version__ = '0.1.0'
+__version__ = "0.1.0"

@@ -203,9 +203,9 @@ See `/doc` directory:
 
 ---
 
-**Repository**: https://github.com/cogpy/a9nn  
-**Based on**: torch/nn (Lua/Torch neural network library)  
-**Extensions**: Cognitive agents, parallel LLaMA.cpp, NNECCO architecture  
+**Repository**: https://github.com/cogpy/a9nn
+**Based on**: torch/nn (Lua/Torch neural network library)
+**Extensions**: Cognitive agents, parallel LLaMA.cpp, NNECCO architecture
 **License**: BSD (inherited from torch/nn)
 
 🧠 *Neural networks meet cognitive architecture in Lua.*

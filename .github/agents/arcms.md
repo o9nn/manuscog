@@ -51,7 +51,7 @@ Archivarix CMS is a specialized flat-file CMS built for managing websites restor
 .content.XXXXXXXX/          # Content directory (UUID-based)
 ├── urls.sqlite.db          # Main database
 ├── settings.json           # ACMS settings
-├── loader.settings         # Loader configuration  
+├── loader.settings         # Loader configuration
 ├── custom/                 # Custom files and rules
 └── [archived content]      # Restored website files
 ```

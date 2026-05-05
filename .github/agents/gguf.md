@@ -1,5 +1,5 @@
 ---
-# Custom agent for GGUF Workbench - A comprehensive tool for inspecting, modifying, 
+# Custom agent for GGUF Workbench - A comprehensive tool for inspecting, modifying,
 # and customizing GGUF (GPT-Generated Unified Format) model files.
 # The Copilot CLI can be used for local testing: https://gh.io/customagents/cli
 # To make this agent available, merge this file into the default repository branch.
@@ -200,15 +200,15 @@ def rename_models(directory, prefix):
     for gguf_file in Path(directory).glob("*.gguf"):
         with GGUFReader(gguf_file) as reader:
             metadata = reader.get_metadata()
-        
+
         original_name = metadata.get("general.name", "Unknown")
         new_name = f"{prefix}_{original_name}"
         metadata.set("general.name", new_name)
-        
+
         output_file = gguf_file.parent / f"{prefix}_{gguf_file.name}"
         with GGUFWriter(output_file, metadata) as writer:
             writer.write()
-        
+
         print(f"Renamed {gguf_file.name} -> {output_file.name}")
 ```
 
@@ -221,11 +221,11 @@ from gguf_workbench import GGUFReader
 def generate_catalog(directory):
     """Generate a catalog of all GGUF models in a directory."""
     catalog = []
-    
+
     for gguf_file in Path(directory).glob("*.gguf"):
         with GGUFReader(gguf_file) as reader:
             metadata = reader.get_metadata()
-            
+
             model_info = {
                 "filename": gguf_file.name,
                 "name": metadata.get("general.name"),
@@ -234,10 +234,10 @@ def generate_catalog(directory):
                 "file_type": metadata.get("general.file_type"),
             }
             catalog.append(model_info)
-    
+
     with open("model_catalog.json", "w") as f:
         json.dump(catalog, f, indent=2)
-    
+
     return catalog
 ```
 
@@ -249,14 +249,14 @@ def migrate_metadata(source_file, target_file, key_mapping):
     """Migrate metadata from old key names to new key names."""
     with GGUFReader(source_file) as reader:
         metadata = reader.get_metadata()
-    
+
     # Apply key migrations
     for old_key, new_key in key_mapping.items():
         value = metadata.get(old_key)
         if value is not None:
             metadata.delete(old_key)
             metadata.set(new_key, value)
-    
+
     with GGUFWriter(target_file, metadata) as writer:
         writer.write()
 ```

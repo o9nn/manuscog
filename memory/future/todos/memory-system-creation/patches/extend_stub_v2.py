@@ -1,5 +1,6 @@
 PATH = "/var/agi_neighborhood/deltecho-repo/deep-tree-echo-orchestrator/src/__mocks__/deep-tree-echo-core/index.cjs"
-with open(PATH) as f: s = f.read()
+with open(PATH) as f:
+    s = f.read()
 
 # Replace StubClass with a more complete one
 old_stub = """class StubClass {
@@ -48,7 +49,8 @@ new_stub = """class StubClass {
 
 if old_stub in s:
     s = s.replace(old_stub, new_stub, 1)
-    with open(PATH, "w") as f: f.write(s)
+    with open(PATH, "w") as f:
+        f.write(s)
     print("OK: StubClass enhanced")
 else:
     print("SKIP/FAIL: stub already updated or pattern changed")

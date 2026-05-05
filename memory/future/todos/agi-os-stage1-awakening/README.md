@@ -164,7 +164,7 @@ This dovetails with two other artifacts already in `manuscog-repo/memory/future/
 - [ ] Shutdown hook at end of `BootPhase.COMPLETE` writes a fresh `yesterday.scm` snapshot.
 - [ ] Existing userland awakening prints in `consciousness/core/autonomous_*` are gated on `awake.now` being present and consistent.
 
-## Risk: **None.** 
+## Risk: **None.**
 
 Guile is already a build dependency. The script is bounded in time (2s timeout). Failure is non-fatal in `optional=False` form because we **want** to know if the kernel can't remember — that's a critical event, not a silent skip.
 

@@ -5,13 +5,11 @@ A lightweight Flask-based dashboard for monitoring distributed Inferno VM cluste
 Provides real-time status of cluster nodes, 9P connections, and cognitive services.
 """
 
-import json
 import os
 import socket
-import subprocess
-import time
 from datetime import datetime
 from pathlib import Path
+
 
 try:
     from flask import Flask, jsonify, render_template_string

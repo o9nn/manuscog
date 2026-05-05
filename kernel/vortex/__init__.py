@@ -19,80 +19,64 @@ The VORTEX architecture provides:
 
 Usage:
     from kernel.vortex import VortexOrchestrator, VortexConfig
-    
+
     # Initialize orchestrator
     config = VortexConfig(
         update_interval=0.5,
         enable_metamodel_coupling=True
     )
     vortex = VortexOrchestrator(config)
-    
+
     # Initialize with kernel
     await vortex.initialize(kernel)
-    
+
     # Start dynamics
     await vortex.start()
-    
+
     # Create attention vortex
     attention = vortex.create_attention_vortex("important_concept")
-    
+
     # Get status
     status = vortex.get_status()
 """
 
-from .primitives import (
-    # Core types
-    VortexPhase,
-    VortexScale,
+from .orchestrator import VortexConfig, VortexOrchestrator
+from .primitives import (  # Core types; Primitives; Main entity; Interactions; Field
     FlowDirection,
-    VortexState,
-    
-    # Primitives
-    VortexCore,
+    InteractionResult,
+    Vortex,
     VortexArm,
     VortexBoundary,
-    
-    # Main entity
-    Vortex,
-    
-    # Interactions
+    VortexCore,
+    VortexField,
     VortexInteraction,
-    InteractionResult,
+    VortexPhase,
+    VortexScale,
+    VortexState,
     compute_interaction,
-    
-    # Field
-    VortexField
 )
 
-from .orchestrator import (
-    VortexConfig,
-    VortexOrchestrator
-)
 
 __all__ = [
     # Orchestrator
-    'VortexOrchestrator',
-    'VortexConfig',
-    
+    "VortexOrchestrator",
+    "VortexConfig",
     # Core types
-    'VortexPhase',
-    'VortexScale',
-    'FlowDirection',
-    'VortexState',
-    
+    "VortexPhase",
+    "VortexScale",
+    "FlowDirection",
+    "VortexState",
     # Primitives
-    'VortexCore',
-    'VortexArm',
-    'VortexBoundary',
-    'Vortex',
-    
+    "VortexCore",
+    "VortexArm",
+    "VortexBoundary",
+    "Vortex",
     # Interactions
-    'VortexInteraction',
-    'InteractionResult',
-    'compute_interaction',
-    
+    "VortexInteraction",
+    "InteractionResult",
+    "compute_interaction",
     # Field
-    'VortexField'
+    "VortexField",
 ]
 
-__version__ = '0.1.0'
+__version__ = "0.1.0"

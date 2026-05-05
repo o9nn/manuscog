@@ -9,7 +9,7 @@ description: >
 # ORGGML Kernel Implementation Agent
 
 This agent specializes in implementing kernel-level cognitive primitives for the ORGGML
-monorepo, which reorganizes the ggml-org ecosystem according to OpenCog-inspired 
+monorepo, which reorganizes the ggml-org ecosystem according to OpenCog-inspired
 cognitive architecture principles. It implements tensor operations, language model
 inference, and sensory processing as high-performance C/C++ components.
 
@@ -69,7 +69,7 @@ inference, and sensory processing as high-performance C/C++ components.
 ## ORGGML-Specific Module Mappings
 
 ### ASML (AtomSpace Machine Learning)
-**Origin:** ggml (https://github.com/ggml-org/ggml)  
+**Origin:** ggml (https://github.com/ggml-org/ggml)
 **OpenCog Analog:** AtomSpace - Core knowledge representation
 
 ```c
@@ -109,7 +109,7 @@ struct ggml_cgraph *asml_graph_build(
 ```
 
 ### Learn.Cog (Learning and Cognition)
-**Origin:** llama.cpp (https://github.com/ggml-org/llama.cpp)  
+**Origin:** llama.cpp (https://github.com/ggml-org/llama.cpp)
 **OpenCog Analog:** Language Module + Cognitive Modules
 
 ```c
@@ -162,7 +162,7 @@ struct learncog_context *learncog_context_build(
 ```
 
 ### Sensation (Sensory Input Processing)
-**Origin:** whisper.cpp (https://github.com/ggml-org/whisper.cpp)  
+**Origin:** whisper.cpp (https://github.com/ggml-org/whisper.cpp)
 **OpenCog Analog:** Sensation Module - Multimodal input processing
 
 ```c
@@ -238,28 +238,28 @@ struct ggml_tensor *asml_attention_compute(
     const int64_t n_embd = q->ne[0];
     const int64_t n_ctx = q->ne[1];
     const int64_t d_head = n_embd / n_head;
-    
+
     // Scale factor for attention
     const float scale = 1.0f / sqrtf((float)d_head);
-    
+
     // Reshape for multi-head attention
     struct ggml_tensor *qr = ggml_reshape_4d(ctx, q, d_head, n_head, n_ctx, 1);
     struct ggml_tensor *kr = ggml_reshape_4d(ctx, k, d_head, n_head, n_ctx, 1);
     struct ggml_tensor *vr = ggml_reshape_4d(ctx, v, d_head, n_head, n_ctx, 1);
-    
+
     // Compute attention scores: Q @ K^T
     struct ggml_tensor *kq = ggml_mul_mat(ctx, kr, qr);
     kq = ggml_scale(ctx, kq, ggml_new_f32(ctx, scale));
-    
+
     // Apply softmax
     kq = ggml_soft_max(ctx, kq);
-    
+
     // Apply attention to values: softmax(Q @ K^T) @ V
     struct ggml_tensor *kqv = ggml_mul_mat(ctx, vr, kq);
-    
+
     // Reshape back to original dimensions
     kqv = ggml_reshape_2d(ctx, kqv, n_embd, n_ctx);
-    
+
     return kqv;
 }
 ```
@@ -283,21 +283,21 @@ struct learncog_output *learncog_cognitive_cycle(
 ) {
     // Build context from input and memory
     struct learncog_context *ctx = learncog_context_build(
-        model, 
+        model,
         input,
         memory->max_tokens
     );
-    
+
     // Integrate working memory
     learncog_context_merge(ctx, memory->tokens, memory->n_tokens);
-    
+
     // Perform inference
     struct learncog_infer_params params = {
         .temperature = 0.7f,
         .top_p = 0.9f,
         .n_predict = 128
     };
-    
+
     int32_t output[128];
     int n_output = learncog_infer(
         model,
@@ -307,18 +307,18 @@ struct learncog_output *learncog_cognitive_cycle(
         output,
         128
     );
-    
+
     // Update working memory
     learncog_memory_update(memory, output, n_output);
-    
+
     // Decode output
     struct learncog_output *result = malloc(sizeof(struct learncog_output));
     result->text = learncog_decode_tokens(model, output, n_output);
     result->tokens = output;
     result->n_tokens = n_output;
-    
+
     learncog_context_free(ctx);
-    
+
     return result;
 }
 ```
@@ -348,20 +348,20 @@ const char *orggml_multimodal_process(
         n_samples,
         16000  // 16kHz sample rate
     );
-    
+
     // Stage 2: Sensation - Transcribe speech to text
     struct sensation_decode_params decode_params = {
         .language = "en",
         .temperature = 0.0f,
         .n_threads = 4
     };
-    
+
     const char *transcription = sensation_whisper_decode(
         whisper,
         processed_audio,
         &decode_params
     );
-    
+
     // Stage 3: Learn.Cog - Understand and process language
     struct learncog_memory memory = {0};
     struct learncog_output *response = learncog_cognitive_cycle(
@@ -369,10 +369,10 @@ const char *orggml_multimodal_process(
         transcription,
         &memory
     );
-    
+
     // Cleanup
     sensation_audio_free(processed_audio);
-    
+
     return response->text;
 }
 ```
@@ -457,13 +457,13 @@ const char *orggml_multimodal_process(
 >     int n_dims
 > ) {
 >     struct ggml_tensor *t = ggml_new_tensor(ctx, type, n_dims, ne);
->     
+>
 >     // Tag as ASML knowledge atom
 >     ggml_set_name(t, "asml_atom");
->     
+>
 >     // Initialize for knowledge representation
 >     ggml_set_zero(t);
->     
+>
 >     return t;
 > }
 > ```
@@ -560,21 +560,21 @@ All kernel functions must include:
 ```c
 /**
  * @brief Short description (cognitive function, not just technical)
- * 
+ *
  * Detailed description including:
  * - Cognitive architecture mapping (OpenCog analog)
  * - Integration with other modules
  * - Performance characteristics
- * 
+ *
  * @param param_name Description of parameter
  * @return Description of return value
- * 
+ *
  * @note Important implementation notes
  * @see Related functions across modules
- * 
+ *
  * @opencog_analog OpenCog component this maps to (e.g., "AtomSpace::addNode")
  * @module ASML|Learn.Cog|Sensation
- * 
+ *
  * @example
  * ```c
  * // Example usage showing cognitive function

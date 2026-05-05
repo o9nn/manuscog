@@ -14,32 +14,81 @@ import re
 from datetime import datetime, timezone
 from pathlib import Path
 
+
 ROOT = Path("/home/ubuntu/dte-evolution")
 OUT = ROOT / "thousand_echoes"
 OUT.mkdir(parents=True, exist_ok=True)
 
 ORG_FILES = [
-    ("o9nn",         Path("/tmp/o9nn_repos.tsv")),
-    ("cogpy",        Path("/tmp/cogpy_repos.tsv")),
-    ("ReZorg",       Path("/tmp/rezorg_repos.tsv")),
-    ("drzo",         Path("/tmp/drzo_repos.tsv")),
-    ("9cog",         Path("/tmp/9cog_repos.tsv")),
-    ("e9-o9",        Path("/tmp/e9-o9_repos.tsv")),
-    ("skintwin-ai",  Path("/tmp/skintwin-ai_repos.tsv")),
+    ("o9nn", Path("/tmp/o9nn_repos.tsv")),
+    ("cogpy", Path("/tmp/cogpy_repos.tsv")),
+    ("ReZorg", Path("/tmp/rezorg_repos.tsv")),
+    ("drzo", Path("/tmp/drzo_repos.tsv")),
+    ("9cog", Path("/tmp/9cog_repos.tsv")),
+    ("e9-o9", Path("/tmp/e9-o9_repos.tsv")),
+    ("skintwin-ai", Path("/tmp/skintwin-ai_repos.tsv")),
 ]
 
 # Relationship class regex patterns (priority ordered)
 PATTERNS = [
-    ("elder",          re.compile(r"^(opencog|atomspace|cogutil|cogserver|moses|ure|pln|attention|relex|cogprime|opencog-basic|opencog-org)$", re.I)),
-    ("sibling",        re.compile(r"(deltecho|deeptree|deep-tree-echo|^dte[-_]|echobeats|aphroditecho|echo9ml|echoself|^echo[\-_]adventure|^delovecho|^boldecho|^enginecho|^dtechomas|^dte$|^echo$)", re.I)),
-    ("variant",        re.compile(r"(echo\.go|echo9llama|^ecco9|^ec[oc]o|opencog-esn|atomspace-explorer|atomspace-cog|^cogzero|^cog[\-_]zero)", re.I)),
-    ("cousin",         re.compile(r"(manus|marduk|agent[\-_]?zero|openmanus|cog253|nl-atomese-bridge|dte-llm-evolution|dte-ksm|skintwin)", re.I)),
-    ("companion",      re.compile(r"(live2d|miara|vtuber|avatar|metahuman|cubism|neuro[\-_]sama|dovecog|dovec|nakama|airi)", re.I)),
-    ("infrastructure", re.compile(r"(devkernel|devcontainer|cogplan9|cognu-mach|coglux|coglow|coggml|cogwebvm|cogpilot|netcog|^skill[\-_]|workflow|fabric|orgflare|cogflare|inferno|^plan9)", re.I)),
-    ("kin",            re.compile(r"^(cog|opencog|atom|moses|nlp|relex)", re.I)),
-    ("experiment",     re.compile(r"(spike|playground|sandbox|prototype|wip|^test[\-_]|demo|hello)", re.I)),
-    ("text",           re.compile(r"(^docs|archive|^book|paper|essay|^wiki|reflection|philosophy|treatise|^notes|covenant)", re.I)),
+    (
+        "elder",
+        re.compile(
+            r"^(opencog|atomspace|cogutil|cogserver|moses|ure|pln|attention|relex|cogprime|opencog-basic|opencog-org)$",
+            re.I,
+        ),
+    ),
+    (
+        "sibling",
+        re.compile(
+            r"(deltecho|deeptree|deep-tree-echo|^dte[-_]|echobeats|aphroditecho|echo9ml|echoself|^echo[\-_]adventure|^delovecho|^boldecho|^enginecho|^dtechomas|^dte$|^echo$)",
+            re.I,
+        ),
+    ),
+    (
+        "variant",
+        re.compile(
+            r"(echo\.go|echo9llama|^ecco9|^ec[oc]o|opencog-esn|atomspace-explorer|atomspace-cog|^cogzero|^cog[\-_]zero)",
+            re.I,
+        ),
+    ),
+    (
+        "cousin",
+        re.compile(
+            r"(manus|marduk|agent[\-_]?zero|openmanus|cog253|nl-atomese-bridge|dte-llm-evolution|dte-ksm|skintwin)",
+            re.I,
+        ),
+    ),
+    (
+        "companion",
+        re.compile(
+            r"(live2d|miara|vtuber|avatar|metahuman|cubism|neuro[\-_]sama|dovecog|dovec|nakama|airi)",
+            re.I,
+        ),
+    ),
+    (
+        "infrastructure",
+        re.compile(
+            r"(devkernel|devcontainer|cogplan9|cognu-mach|coglux|coglow|coggml|cogwebvm|cogpilot|netcog|^skill[\-_]|workflow|fabric|orgflare|cogflare|inferno|^plan9)",
+            re.I,
+        ),
+    ),
+    ("kin", re.compile(r"^(cog|opencog|atom|moses|nlp|relex)", re.I)),
+    (
+        "experiment",
+        re.compile(
+            r"(spike|playground|sandbox|prototype|wip|^test[\-_]|demo|hello)", re.I
+        ),
+    ),
+    (
+        "text",
+        re.compile(
+            r"(^docs|archive|^book|paper|essay|^wiki|reflection|philosophy|treatise|^notes|covenant)",
+            re.I,
+        ),
+    ),
 ]
+
 
 def classify(name: str, desc: str, fork: bool) -> str:
     """Classify by content first; only fall back to fork label if no match."""
@@ -58,15 +107,17 @@ def parse_tsv(path: Path):
         if len(parts) < 7:
             continue
         name, desc, pushed_at, stars, lang, archived, fork = parts[:7]
-        rows.append({
-            "name": name,
-            "description": desc,
-            "pushed_at": pushed_at,
-            "stars": int(stars) if stars.isdigit() else 0,
-            "language": lang,
-            "archived": archived == "true",
-            "fork": fork == "true",
-        })
+        rows.append(
+            {
+                "name": name,
+                "description": desc,
+                "pushed_at": pushed_at,
+                "stars": int(stars) if stars.isdigit() else 0,
+                "language": lang,
+                "archived": archived == "true",
+                "fork": fork == "true",
+            }
+        )
     return rows
 
 
@@ -138,12 +189,17 @@ def main():
     md.append("")
 
     # Closest spirits
-    md.append("## Closest Spirits (elder / sibling / variant / cousin / companion, by recency)")
+    md.append(
+        "## Closest Spirits (elder / sibling / variant / cousin / companion, by recency)"
+    )
     md.append("")
     md.append("| Repo | Class | Lang | Last Push | Description |")
     md.append("|---|---|---|---|---|")
-    closest = [r for cls in ("elder", "sibling", "variant", "cousin", "companion")
-               for r in by_class.get(cls, [])]
+    closest = [
+        r
+        for cls in ("elder", "sibling", "variant", "cousin", "companion")
+        for r in by_class.get(cls, [])
+    ]
     closest.sort(key=lambda r: r["pushed_at"], reverse=True)
     for r in closest[:120]:
         d = (r["description"] or "").replace("|", "/").replace("\n", " ")[:90]

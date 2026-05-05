@@ -34,7 +34,7 @@ Plan 9 organizes its codebase by system component and architecture:
    - **sys/lib/** - System library support files
    - **sys/man/** - Manual pages
 
-2. **386/**, **amd64/**, **arm/**, **mips/**, **power/**, **power64/**, **sparc/** 
+2. **386/**, **amd64/**, **arm/**, **mips/**, **power/**, **power64/**, **sparc/**
    - Architecture-specific binaries and boot files
 
 3. **acme/** - Acme text editor and related tools
@@ -187,7 +187,7 @@ mk clean
 
 - **C Language:** ANSI C with Plan 9 extensions
 - **Indentation:** Tabs, not spaces
-- **Naming:** 
+- **Naming:**
   - Functions: lowercase, concise (`read`, `write`, `allocb`)
   - Types: CamelCase (`Chan`, `Block`, `Proc`)
   - Constants: UPPERCASE or initial caps
@@ -208,14 +208,14 @@ main(int argc, char *argv[])
 
 	if(argc != 2)
 		sysfatal("usage: %s file", argv[0]);
-	
+
 	fd = open(argv[1], OREAD);
 	if(fd < 0)
 		sysfatal("open: %r");
-	
+
 	while((n = read(fd, buf, sizeof buf)) > 0)
 		write(1, buf, n);
-	
+
 	exits(nil);
 }
 ```
@@ -298,7 +298,7 @@ void
 fsread(Req *r)
 {
 	File *f;
-	
+
 	f = r->fid->file->aux;
 	readstr(r, f->content);
 	respond(r, nil);
@@ -313,13 +313,13 @@ threadmain(int argc, char *argv[])
 {
 	File *f;
 	int i;
-	
+
 	fs.tree = alloctree(nil, nil, DMDIR|0555, nil);
 	for(i = 0; i < nelem(files); i++){
 		f = &files[i];
 		createfile(fs.tree->root, f->name, nil, 0444, f);
 	}
-	
+
 	threadpostmountsrv(&fs, nil, "/mnt/myfs", MREPL);
 	threadexits(nil);
 }
@@ -356,13 +356,13 @@ main(int argc, char *argv[])
 	default:
 		usage();
 	}ARGEND
-	
+
 	if(argc != 1)
 		usage();
-	
+
 	// Process argv[0] as input file
 	// ...
-	
+
 	exits(nil);
 }
 ```
@@ -380,12 +380,12 @@ void
 sender(void *v)
 {
 	int i;
-	
+
 	for(i = 0; i < 10; i++){
 		send(c, &i);
 		sleep(100);
 	}
-	
+
 	threadexits(nil);
 }
 
@@ -393,10 +393,10 @@ void
 receiver(void *v)
 {
 	int n;
-	
+
 	while(recv(c, &n) > 0)
 		print("received: %d\n", n);
-	
+
 	threadexits(nil);
 }
 
@@ -404,10 +404,10 @@ void
 threadmain(int argc, char *argv[])
 {
 	c = chancreate(sizeof(int), 0);
-	
+
 	threadcreate(sender, nil, 8192);
 	threadcreate(receiver, nil, 8192);
-	
+
 	threadexits(nil);
 }
 ```
@@ -529,14 +529,14 @@ void
 main(void)
 {
 	Point p;
-	
+
 	if(initdraw(nil, nil, "example") < 0)
 		sysfatal("initdraw: %r");
-	
+
 	p = addpt(screen->r.min, Pt(100, 100));
 	draw(screen, Rect(p.x, p.y, p.x+100, p.y+100),
 		display->black, nil, ZP);
-	
+
 	flushimage(display, 1);
 	sleep(5000);
 	exits(nil);
@@ -554,19 +554,19 @@ main(void)
 {
 	int fd, cfd;
 	char buf[128];
-	
+
 	// Dial network connection
 	fd = dial("tcp!plan9.bell-labs.com!80", 0, 0, &cfd);
 	if(fd < 0)
 		sysfatal("dial: %r");
-	
+
 	// Send HTTP request
 	fprint(fd, "GET / HTTP/1.0\r\n\r\n");
-	
+
 	// Read response
 	while(read(fd, buf, sizeof buf) > 0)
 		write(1, buf, sizeof buf);
-	
+
 	close(fd);
 	exits(nil);
 }

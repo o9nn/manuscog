@@ -140,7 +140,7 @@ void assemble(uint n, tree t, uint sl, uint pos, uint rem) {
         append(t);
         return;
     }
-    
+
     // Try adding a subtree of size sl
     if (sl > rem) {
         sl = rem;
@@ -150,7 +150,7 @@ void assemble(uint n, tree t, uint sl, uint pos, uint rem) {
         if (!sl) return;
         pos = offset[sl];
     }
-    
+
     // Recurse: add current subtree or try next
     assemble(n, t<<(2*sl) | list[pos], sl, pos, rem - sl);
     assemble(n, t, sl, pos + 1, rem);
@@ -189,16 +189,16 @@ The Python version focuses on readability:
 ```python
 def bags(n, cache={}):
     if not n: return [(0, "")]
-    
+
     # Get all smaller trees
     upto = sum([bags(x) for x in range(n-1, 0, -1)], [])
-    
+
     # Build n-trees by chaining smaller trees
     return [(c+1, '('+s+')') for c,s in bagchain((0, ""), n-1, upto)]
 
 def bagchain(x, n, bb, start=0):
     if not n: return [x]
-    
+
     out = []
     for i in range(start, len(bb)):
         c, s = bb[i]
@@ -226,7 +226,7 @@ const treeFromParentIndices = pxs => {
     const go = (tree, tplIP) =>
         Node(
             tree.root,
-            tree.root === snd(tplIP) ? 
+            tree.root === snd(tplIP) ?
                 tree.nest.concat(Node(fst(tplIP)), []) :
                 map(t => go(t, tplIP), tree.nest)
         );
@@ -239,7 +239,7 @@ const treeFromParentIndices = pxs => {
 The Rust version emphasizes safety and efficiency:
 
 ```rust
-fn assemble(list: &mut Vec<usize>, offset: &mut Vec<usize>, 
+fn assemble(list: &mut Vec<usize>, offset: &mut Vec<usize>,
             n: usize, t: usize, mut sl: usize, mut pos: usize, rem: usize) {
     if rem == 0 {
         add(list, t);
@@ -268,7 +268,7 @@ func assemble(n uint, t tree, sl, pos, rem uint) {
         add(t)
         return
     }
-    
+
     if sl > rem {
         sl = rem
         pos = offset[sl]
@@ -277,7 +277,7 @@ func assemble(n uint, t tree, sl, pos, rem uint) {
         if sl == 0 { return }
         pos = offset[sl]
     }
-    
+
     assemble(n, t<<(2*sl)|list[pos], sl, pos, rem-sl)
     assemble(n, t, sl, pos+1, rem)
 }

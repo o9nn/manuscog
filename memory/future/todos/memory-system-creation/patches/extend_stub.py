@@ -1,5 +1,6 @@
 PATH = "/var/agi_neighborhood/deltecho-repo/deep-tree-echo-orchestrator/src/__mocks__/deep-tree-echo-core/index.cjs"
-with open(PATH) as f: s = f.read()
+with open(PATH) as f:
+    s = f.read()
 
 # Add more stub exports based on what tests actually import
 extras = """
@@ -40,7 +41,8 @@ module.exports.AgentRegistry = class {
 
 if "InMemoryStorage" not in s:
     s = s + extras
-    with open(PATH, "w") as f: f.write(s)
+    with open(PATH, "w") as f:
+        f.write(s)
     print("OK: stub extended")
 else:
     print("SKIP: already extended")

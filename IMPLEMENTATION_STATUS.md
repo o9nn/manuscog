@@ -219,15 +219,15 @@ async def main():
     config = KernelConfig(kernel_id="manuscog-main")
     kernel = CognitiveKernel(config)
     kernel.boot()
-    
+
     # Start advanced modules (async)
     await kernel.start_advanced_modules()
-    
+
     # Use autognosis
     if kernel.autognosis:
         status = kernel.autognosis.get_status()
         print(f"Self-awareness level: {status['current_level']}")
-    
+
     # Use integration hub
     if kernel.integration_hub:
         guidance = await kernel.integration_hub.request_guidance(
@@ -235,17 +235,17 @@ async def main():
             question="How can I improve?",
             context={}
         )
-    
+
     # Check metamodel
     if kernel.metamodel:
         guidance = kernel.metamodel.get_evolution_guidance()
         if guidance['ready_for_evolution']:
             print("System ready for evolution!")
-    
+
     # Use VORTEX
     if kernel.vortex:
         attention_vortex = kernel.vortex.create_attention_vortex("important_topic")
-    
+
     # Cleanup
     await kernel.stop_advanced_modules()
     kernel.shutdown()

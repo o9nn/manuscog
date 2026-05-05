@@ -5,7 +5,7 @@ This file demonstrates various configuration options and setups for the
 OpenCog-powered Cognitive Agent in different use cases.
 """
 
-from typing import Dict, Any
+from typing import Any, Dict
 
 
 def get_basic_config() -> Dict[str, Any]:
@@ -13,7 +13,7 @@ def get_basic_config() -> Dict[str, Any]:
     return {
         "enable_auto_reasoning": True,
         "max_reasoning_iterations": 5,
-        "knowledge_persistence": True
+        "knowledge_persistence": True,
     }
 
 
@@ -25,7 +25,7 @@ def get_research_config() -> Dict[str, Any]:
         "knowledge_persistence": True,
         # Additional tools for research
         "enable_pattern_analysis": True,
-        "enable_knowledge_validation": True
+        "enable_knowledge_validation": True,
     }
 
 
@@ -35,7 +35,7 @@ def get_educational_config() -> Dict[str, Any]:
         "enable_auto_reasoning": True,
         "max_reasoning_iterations": 3,
         "knowledge_persistence": False,  # Fresh start each time
-        "verbose_explanations": True
+        "verbose_explanations": True,
     }
 
 
@@ -46,7 +46,7 @@ def get_production_config() -> Dict[str, Any]:
         "max_reasoning_iterations": 8,
         "knowledge_persistence": True,
         "performance_monitoring": True,
-        "error_recovery": True
+        "error_recovery": True,
     }
 
 
@@ -55,12 +55,12 @@ SAMPLE_KNOWLEDGE_DOMAINS = {
     "artificial_intelligence": {
         "concepts": [
             "Artificial Intelligence",
-            "Machine Learning", 
+            "Machine Learning",
             "Deep Learning",
             "Neural Networks",
             "Natural Language Processing",
             "Computer Vision",
-            "Robotics"
+            "Robotics",
         ],
         "relationships": [
             ("Machine Learning", "Artificial Intelligence"),
@@ -68,68 +68,67 @@ SAMPLE_KNOWLEDGE_DOMAINS = {
             ("Neural Networks", "Deep Learning"),
             ("Natural Language Processing", "Artificial Intelligence"),
             ("Computer Vision", "Artificial Intelligence"),
-            ("Robotics", "Artificial Intelligence")
+            ("Robotics", "Artificial Intelligence"),
         ],
         "facts": [
             ("Machine Learning", "learns_from", "data"),
             ("Neural Networks", "inspired_by", "biological_neurons"),
             ("Deep Learning", "uses", "multiple_layers"),
             ("Natural Language Processing", "processes", "human_language"),
-            ("Computer Vision", "analyzes", "visual_data")
-        ]
+            ("Computer Vision", "analyzes", "visual_data"),
+        ],
     },
-    
     "science": {
         "concepts": [
             "Physics",
-            "Chemistry", 
+            "Chemistry",
             "Biology",
             "Mathematics",
             "Quantum Mechanics",
             "Molecular Biology",
-            "Genetics"
+            "Genetics",
         ],
         "relationships": [
             ("Quantum Mechanics", "Physics"),
             ("Molecular Biology", "Biology"),
             ("Genetics", "Biology"),
-            ("Mathematics", "Science")
+            ("Mathematics", "Science"),
         ],
         "facts": [
             ("Physics", "studies", "matter_and_energy"),
-            ("Chemistry", "studies", "atoms_and_molecules"), 
+            ("Chemistry", "studies", "atoms_and_molecules"),
             ("Biology", "studies", "living_organisms"),
-            ("Mathematics", "provides", "logical_framework")
-        ]
-    }
+            ("Mathematics", "provides", "logical_framework"),
+        ],
+    },
 }
 
 
 def initialize_knowledge_domain(agent, domain_name: str):
     """
     Initialize agent with knowledge from a specific domain.
-    
+
     Args:
         agent: CognitiveAgent instance
         domain_name: Name of domain from SAMPLE_KNOWLEDGE_DOMAINS
     """
     if domain_name not in SAMPLE_KNOWLEDGE_DOMAINS:
         raise ValueError(f"Unknown domain: {domain_name}")
-    
+
     domain = SAMPLE_KNOWLEDGE_DOMAINS[domain_name]
-    
+
     # Add concepts
     for concept in domain["concepts"]:
         agent.add_knowledge("concept", concept)
-    
-    # Add relationships  
+
+    # Add relationships
     for child, parent in domain["relationships"]:
         agent.add_knowledge("relation", child, object_=parent)
-    
+
     # Add facts
     for subject, predicate, object_ in domain["facts"]:
         agent.add_knowledge("fact", subject, predicate, object_)
-    
+
     print(f"Initialized {domain_name} knowledge domain with:")
     print(f"  - {len(domain['concepts'])} concepts")
     print(f"  - {len(domain['relationships'])} relationships")
@@ -146,7 +145,6 @@ initialize_knowledge_domain(agent, "artificial_intelligence")
 # Ask questions about the domain
 response = await agent.run("What is the relationship between Deep Learning and AI?")
 """,
-
     "research_analysis": """
 # Research analysis setup
 agent = CognitiveAgent(**get_research_config())
@@ -155,7 +153,6 @@ initialize_knowledge_domain(agent, "science")
 # Perform deep analysis
 response = await agent.run("Analyze the interconnections between different science fields and suggest research opportunities")
 """,
-
     "educational_demo": """
 # Educational demonstration
 agent = CognitiveAgent(**get_educational_config())
@@ -163,5 +160,5 @@ initialize_knowledge_domain(agent, "artificial_intelligence")
 
 # Step-by-step learning
 response = await agent.run("Teach me about AI by building up from basic concepts")
-"""
+""",
 }

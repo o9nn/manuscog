@@ -143,7 +143,7 @@ description: >
 ### Integration with CogPrime
 These agents are designed to align with:
 - **OpenCog Prime** cognitive architecture
-- **OpenCog Hyperon** advanced capabilities  
+- **OpenCog Hyperon** advanced capabilities
 - **Vervaeke's framework** for relevance realization
 - **4E Cognition** principles
 - **Wisdom traditions** (Socratic, Buddhist, Stoic)

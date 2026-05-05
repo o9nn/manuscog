@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-import sys as _sys, os as _os
+import os as _os
+import sys as _sys
+
+
 _script_dir = _os.path.dirname(_os.path.abspath(__file__))
 if _script_dir in _sys.path:
     _sys.path.remove(_script_dir)
@@ -21,13 +24,10 @@ Usage:
   python cognitive_devkernel.py cycle           — Run one autognosis cycle
 """
 
-import json
-import os
-import sys
-import time
 import hashlib
-from dataclasses import dataclass, field, asdict
-from typing import Any
+import json
+import sys
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 
@@ -35,9 +35,11 @@ from pathlib import Path
 # Layer 1: Time Crystal Temporal Hierarchy (from time-crystal-nn)
 # ============================================================================
 
+
 @dataclass
 class TemporalLevel:
     """A single level in the time crystal hierarchy."""
+
     level: int
     name: str
     period_ms: float
@@ -45,31 +47,34 @@ class TemporalLevel:
     amplitude: float = 1.0
 
     def step(self, dt_ms: float):
-        self.phase = (self.phase + (dt_ms / self.period_ms) * 2 * 3.14159) % (2 * 3.14159)
+        self.phase = (self.phase + (dt_ms / self.period_ms) * 2 * 3.14159) % (
+            2 * 3.14159
+        )
 
     def activation(self) -> float:
         import math
+
         return self.amplitude * math.sin(self.phase)
 
 
 class TimeCrystalHierarchy:
     """9-level temporal hierarchy mapped to cognitive kernel services."""
+
     LEVELS = [
-        (0, "atom-ops",       8,    "AtomSpace CRUD operations"),
-        (1, "pattern-match",  26,   "Pattern matching queries"),
-        (2, "inference-step", 52,   "Single PLN inference step"),
-        (3, "attention-tick", 110,  "ECAN attention allocation tick"),
-        (4, "learning-batch", 160,  "MOSES learning batch"),
-        (5, "namespace-sync", 250,  "9P namespace synchronization"),
-        (6, "cluster-pulse",  330,  "Cluster heartbeat"),
-        (7, "autognosis-obs", 500,  "Autognosis observation"),
-        (8, "self-image",     1000, "Full self-image rebuild"),
+        (0, "atom-ops", 8, "AtomSpace CRUD operations"),
+        (1, "pattern-match", 26, "Pattern matching queries"),
+        (2, "inference-step", 52, "Single PLN inference step"),
+        (3, "attention-tick", 110, "ECAN attention allocation tick"),
+        (4, "learning-batch", 160, "MOSES learning batch"),
+        (5, "namespace-sync", 250, "9P namespace synchronization"),
+        (6, "cluster-pulse", 330, "Cluster heartbeat"),
+        (7, "autognosis-obs", 500, "Autognosis observation"),
+        (8, "self-image", 1000, "Full self-image rebuild"),
     ]
 
     def __init__(self):
         self.levels = [
-            TemporalLevel(level=l, name=n, period_ms=p)
-            for l, n, p, _ in self.LEVELS
+            TemporalLevel(level=l, name=n, period_ms=p) for l, n, p, _ in self.LEVELS
         ]
         self.time_ms = 0.0
 
@@ -95,9 +100,11 @@ class TimeCrystalHierarchy:
 # Layer 2: Promise-Lambda Attention (constraint satisfaction)
 # ============================================================================
 
+
 @dataclass
 class Promise:
     """A lambda constraint on the cognitive kernel configuration."""
+
     name: str
     constraint: str
     required: bool = True
@@ -109,14 +116,28 @@ class PromiseLambdaEngine:
     """Validates kernel configurations against promise constraints."""
 
     KERNEL_PROMISES = [
-        Promise("inferno-binary",   "emu binary exists at INFERNO_ROOT/Linux/amd64/bin/emu"),
-        Promise("limbo-compiler",   "limbo compiler exists at INFERNO_ROOT/Linux/amd64/bin/limbo"),
-        Promise("9p-listener",      "9P/Styx port 6666 is configured for forwarding"),
-        Promise("cluster-compose",  "docker-compose.cluster.yml defines inferno-registry service"),
-        Promise("cognitive-ns",     "/cognitive/atomspace namespace is defined in cluster config"),
-        Promise("devcontainer-json","devcontainer.json contains INFERNO_ROOT environment variable"),
-        Promise("autognosis-loop",  "post-start.sh includes environment verification"),
-        Promise("temporal-levels",  "At least 9 temporal processing levels are defined"),
+        Promise(
+            "inferno-binary", "emu binary exists at INFERNO_ROOT/Linux/amd64/bin/emu"
+        ),
+        Promise(
+            "limbo-compiler",
+            "limbo compiler exists at INFERNO_ROOT/Linux/amd64/bin/limbo",
+        ),
+        Promise("9p-listener", "9P/Styx port 6666 is configured for forwarding"),
+        Promise(
+            "cluster-compose",
+            "docker-compose.cluster.yml defines inferno-registry service",
+        ),
+        Promise(
+            "cognitive-ns",
+            "/cognitive/atomspace namespace is defined in cluster config",
+        ),
+        Promise(
+            "devcontainer-json",
+            "devcontainer.json contains INFERNO_ROOT environment variable",
+        ),
+        Promise("autognosis-loop", "post-start.sh includes environment verification"),
+        Promise("temporal-levels", "At least 9 temporal processing levels are defined"),
     ]
 
     def __init__(self, project_path: str):
@@ -187,32 +208,32 @@ class PromiseLambdaEngine:
 # Layer 3: Cognitive File System (function-creator(tc) transform)
 # ============================================================================
 
+
 class CognitiveFileSystem:
     """TC file operations transformed to cognitive namespace operations."""
 
     NAMESPACE_MAP = {
-        "/cognitive/atomspace/atoms":     "Atom storage (ConceptNode, PredicateNode, etc.)",
-        "/cognitive/atomspace/types":     "Type hierarchy definitions",
-        "/cognitive/atomspace/indices":   "Lookup indices for pattern matching",
-        "/cognitive/inference/rules":     "PLN inference rules",
-        "/cognitive/inference/queue":     "Inference task queue",
-        "/cognitive/inference/results":   "Inference results cache",
-        "/cognitive/attention/bank":      "Attention bank (STI/LTI values)",
-        "/cognitive/attention/agents":    "Attention allocation agents",
-        "/cognitive/learning/populations":"MOSES population storage",
-        "/cognitive/learning/fitness":    "Fitness evaluator configurations",
-        "/cognitive/temporal/levels":     "Time crystal hierarchy levels",
-        "/cognitive/temporal/phases":     "Phase state for each temporal level",
-        "/cognitive/autognosis/images":   "Hierarchical self-images",
+        "/cognitive/atomspace/atoms": "Atom storage (ConceptNode, PredicateNode, etc.)",
+        "/cognitive/atomspace/types": "Type hierarchy definitions",
+        "/cognitive/atomspace/indices": "Lookup indices for pattern matching",
+        "/cognitive/inference/rules": "PLN inference rules",
+        "/cognitive/inference/queue": "Inference task queue",
+        "/cognitive/inference/results": "Inference results cache",
+        "/cognitive/attention/bank": "Attention bank (STI/LTI values)",
+        "/cognitive/attention/agents": "Attention allocation agents",
+        "/cognitive/learning/populations": "MOSES population storage",
+        "/cognitive/learning/fitness": "Fitness evaluator configurations",
+        "/cognitive/temporal/levels": "Time crystal hierarchy levels",
+        "/cognitive/temporal/phases": "Phase state for each temporal level",
+        "/cognitive/autognosis/images": "Hierarchical self-images",
         "/cognitive/autognosis/insights": "Meta-cognitive insights",
-        "/cognitive/autognosis/metrics":  "Self-monitoring metrics",
+        "/cognitive/autognosis/metrics": "Self-monitoring metrics",
     }
 
     @classmethod
     def tree(cls) -> str:
         """Display the cognitive namespace tree (tc tree transform)."""
         lines = ["/cognitive/"]
-        prev_parts = []
         for path, desc in sorted(cls.NAMESPACE_MAP.items()):
             parts = path.strip("/").split("/")
             indent = "    " * (len(parts) - 1)
@@ -224,6 +245,7 @@ class CognitiveFileSystem:
     def search(cls, pattern: str) -> list[tuple[str, str]]:
         """Search cognitive namespace (tc search transform)."""
         import re
+
         regex = re.compile(pattern, re.IGNORECASE)
         return [
             (path, desc)
@@ -236,9 +258,11 @@ class CognitiveFileSystem:
 # Layer 4: Autognosis Self-Image (hierarchical self-monitoring)
 # ============================================================================
 
+
 @dataclass
 class SelfImage:
     """A single level of the Autognosis hierarchical self-image."""
+
     level: int
     confidence: float
     reflections: list[str] = field(default_factory=list)
@@ -285,10 +309,16 @@ class AutognosisEngine:
         """Pattern analysis: behavioral patterns from level 0."""
         reflections = []
         if level0.metrics["promises_satisfied"] == level0.metrics["promises_total"]:
-            reflections.append("All kernel promises satisfied — system is fully configured")
+            reflections.append(
+                "All kernel promises satisfied — system is fully configured"
+            )
         else:
-            missing = level0.metrics["promises_total"] - level0.metrics["promises_satisfied"]
-            reflections.append(f"{missing} kernel promise(s) unsatisfied — configuration incomplete")
+            missing = (
+                level0.metrics["promises_total"] - level0.metrics["promises_satisfied"]
+            )
+            reflections.append(
+                f"{missing} kernel promise(s) unsatisfied — configuration incomplete"
+            )
 
         if level0.metrics["temporal_levels"] >= 9:
             reflections.append("Full 9-level temporal hierarchy active")
@@ -311,11 +341,17 @@ class AutognosisEngine:
         avg_confidence = (level0.confidence + level1.confidence) / 2
 
         if avg_confidence > 0.8:
-            reflections.append("High self-awareness: kernel understands its own configuration well")
+            reflections.append(
+                "High self-awareness: kernel understands its own configuration well"
+            )
         elif avg_confidence > 0.5:
-            reflections.append("Moderate self-awareness: some aspects of configuration unclear")
+            reflections.append(
+                "Moderate self-awareness: some aspects of configuration unclear"
+            )
         else:
-            reflections.append("Low self-awareness: significant configuration gaps detected")
+            reflections.append(
+                "Low self-awareness: significant configuration gaps detected"
+            )
 
         reflections.append(
             f"Self-model depth: 3 levels, convergence factor: {avg_confidence:.3f}"
@@ -347,17 +383,21 @@ class AutognosisEngine:
         # Generate insights
         insights = []
         if l0.confidence == 1.0:
-            insights.append({
-                "type": "system_ready",
-                "severity": "info",
-                "message": "Cognitive devkernel fully configured and operational",
-            })
+            insights.append(
+                {
+                    "type": "system_ready",
+                    "severity": "info",
+                    "message": "Cognitive devkernel fully configured and operational",
+                }
+            )
         else:
-            insights.append({
-                "type": "configuration_gap",
-                "severity": "warning",
-                "message": f"Kernel configuration {l0.confidence*100:.0f}% complete",
-            })
+            insights.append(
+                {
+                    "type": "configuration_gap",
+                    "severity": "warning",
+                    "message": f"Kernel configuration {l0.confidence*100:.0f}% complete",
+                }
+            )
 
         # skill-infinity fixed point check
         if self.cycle_count > 1 and len(self.insights) > 0:
@@ -365,11 +405,13 @@ class AutognosisEngine:
             curr_score = l2.metrics["self_awareness_score"]
             delta = abs(curr_score - prev_score)
             if delta < 0.001:
-                insights.append({
-                    "type": "fixed_point",
-                    "severity": "info",
-                    "message": f"Self-improvement converged (Δ={delta:.6f} < ε=0.001)",
-                })
+                insights.append(
+                    {
+                        "type": "fixed_point",
+                        "severity": "info",
+                        "message": f"Self-improvement converged (Δ={delta:.6f} < ε=0.001)",
+                    }
+                )
 
         insights.append({"self_awareness": l2.metrics["self_awareness_score"]})
         self.insights.extend(insights)
@@ -388,6 +430,7 @@ class AutognosisEngine:
 # ============================================================================
 # CLI Interface
 # ============================================================================
+
 
 def cmd_status():
     """Display kernel self-image status."""
@@ -416,7 +459,9 @@ def cmd_status():
     for ts in result["temporal_state"]:
         act = ts["activation"]
         bar = "▓" * max(0, int((act + 1) * 5)) + "░" * max(0, 10 - int((act + 1) * 5))
-        print(f"    L{ts['level']} {ts['name']:20s} {ts['period_ms']:>6.0f}ms [{bar}] {act:+.3f}")
+        print(
+            f"    L{ts['level']} {ts['name']:20s} {ts['period_ms']:>6.0f}ms [{bar}] {act:+.3f}"
+        )
 
     print()
     print("  Insights:")
@@ -474,7 +519,7 @@ def cmd_transform():
 
     print("  [time-crystal-nn → Temporal Hierarchy]")
     print()
-    temporal = TimeCrystalHierarchy()
+    TimeCrystalHierarchy()
     for l, n, p, desc in TimeCrystalHierarchy.LEVELS:
         print(f"    Level {l}: {n:20s} {p:>6}ms — {desc}")
 

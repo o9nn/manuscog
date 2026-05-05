@@ -96,15 +96,15 @@ FFN BOTTLENECK STRUCTURE:
 
 FACTORIZED EMBEDDING POTENTIAL:
   Current: 50,265 × 512 = 25,735,680 parameters
-  
+
   Factorized approach:
     E_aspect[9] × d1 + E_pos[5] × d2 + E_lexical[1117] × d3
     Where d1 + d2 + d3 = 512
-    
+
   Example (d1=170, d2=171, d3=171):
     Total: 1,530 + 855 + 191,007 = 193,392 parameters
     Compression: 133× reduction! (0.75% of original)
-    
+
   High coherence (0.968) suggests this could work well!
 
 ═══════════════════════════════════════════════════════════════════════════
@@ -114,7 +114,7 @@ FACTORIZED EMBEDDING POTENTIAL:
 1. UNEXPECTED STRUCTURE DISCOVERED
    The vocabulary shows high coherence across prime factor groupings,
    despite BPE being frequency-based. This suggests:
-   
+
    • Natural language has latent factorial structure
    • Frequency-based tokenization preserves linguistic regularity
    • Prime factorization may reveal hidden organization
@@ -122,21 +122,21 @@ FACTORIZED EMBEDDING POTENTIAL:
 2. FACTORIZED EMBEDDINGS ARE VIABLE
    Coherence score of 0.968 indicates factor groups are semantically
    coherent, making factorized embeddings promising:
-   
+
    • 133× parameter reduction possible
    • Semantic structure preserved
    • Hierarchical linguistic features (aspect × POS × lexical)
 
 3. CONCURRENCY MODEL FOR TENSOR ANALYSIS
    Viewing prime powers as concurrency levels provides insights:
-   
+
    • [[2]]^n = n levels of binary concurrent processing
    • Multi-prime factorizations = hierarchical concurrency
    • Natural parallelization boundaries
 
 4. HARDWARE OPTIMIZATION VALIDATED
    95% of tensors use pure powers of 2:
-   
+
    • Optimal for GPU/TPU matrix operations
    • Binary tree algorithms for reductions
    • Aligned memory access patterns
