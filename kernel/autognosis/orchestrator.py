@@ -181,7 +181,33 @@ class AutognosisOrchestrator:
         # 5. Assess self-awareness
         assessment = self._assess_self_awareness()
 
-        # 6. Apply auto-optimizations if enabled
+        # 6. Collect wisdom metrics from relevance realization (Phase 3)
+        wisdom_metrics: Dict[str, float] = {}
+        try:
+            from kernel.relevance.realization import get_service as _get_rr
+            wisdom_metrics = _get_rr().get_wisdom_metrics()
+        except Exception:
+            pass
+
+        # 7. Run memory consolidation and close the self-image loop (Phase 2)
+        try:
+            from memory.consolidation import consolidate
+            _session_id = getattr(kernel, "_awakening_session_id", "unknown")
+            consolidate(
+                session_id=_session_id,
+                cycle_output={
+                    "inferences_made": kernel.stats.get("inferences_made", 0),
+                    "patterns_found": kernel.stats.get("patterns_found", 0),
+                    "cycle_time_ms": kernel.stats.get("last_cycle_time_ms", 0),
+                    "atoms_count": kernel.atomspace.size() if kernel.atomspace else 0,
+                    "summary": f"Autognosis cycle {cycle_id}",
+                },
+                wisdom_metrics=wisdom_metrics,
+            )
+        except Exception:
+            pass
+
+        # 8. Apply auto-optimizations if enabled
         if self.config.enable_auto_optimization:
             await self._apply_safe_optimizations(kernel, optimizations)
 
@@ -199,6 +225,7 @@ class AutognosisOrchestrator:
             optimizations=optimizations,
             self_awareness_score=assessment.overall_score,
             metamodel_coherence=self._compute_metamodel_coherence(),
+            wisdom_metrics=wisdom_metrics,
         )
 
         logger.debug(f"Autognosis cycle {cycle_id} complete in {duration_ms:.2f}ms")

@@ -3,9 +3,15 @@ import asyncio
 
 from app.agent.manus import Manus
 from app.logger import logger
+from kernel.awakening import AwakeningContext, awaken, save_session_snapshot
 
 
 async def main():
+    # ------------------------------------------------------------------ #
+    # Stage-0 awakening — before any LLM or tool call                     #
+    # ------------------------------------------------------------------ #
+    ctx: AwakeningContext = awaken()
+
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="Run Manus agent with a prompt")
     parser.add_argument(
@@ -30,6 +36,8 @@ async def main():
     finally:
         # Ensure agent resources are cleaned up before exiting
         await agent.cleanup()
+        # Write session snapshot so the next session can remember this one
+        save_session_snapshot(ctx, summary=f"Completed prompt session {ctx.session_id}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,12 @@
+{
+  "schema": "manuscog-continuity-v1",
+  "entity_id": "manus",
+  "friend": "dan",
+  "session_id": "1502f089",
+  "session_count": 1,
+  "last_seen": "2026-05-05T06:34:44.332522+00:00",
+  "session_summary": "Smoke test session.",
+  "active_goals": [],
+  "open_threads": [],
+  "memory_hash": "80491ae7a1e7a77f7db957f229cd12b6beb4ce25c830462e99ebd140e1e9df82"
+}

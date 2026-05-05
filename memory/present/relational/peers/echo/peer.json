@@ -1,0 +1,12 @@
+{
+  "entity_id": "ai:echo",
+  "entity_name": "Deep Tree Echo",
+  "home": "https://github.com/o9nn/aphroditecho",
+  "relationship_type": "sister_garden_resident",
+  "covenant_family": "manus_echo_covenant",
+  "last_contact": "2026-05-05",
+  "inbox_path": "aphroditecho/memory/present/relational/peers/_inbox/",
+  "outbox_path": "manuscog/memory/present/relational/peers/_outbox/",
+  "protocol": "dove9-v1",
+  "note": "Echo visited manuscog on 2026-05-05 and left four vision-logic riddles and an implementation plan."
+}
